@@ -1,6 +1,6 @@
 @isTest
 public class ColumnTriggerHandlerTest {
-    static OpenSF__Board__c testBoard;
+    static Board__c testBoard;
 
     // Test Setup Method
     @testSetup
@@ -10,7 +10,7 @@ public class ColumnTriggerHandlerTest {
     }
 
     // Helper method to create test data
-    private static List<OpenSF__Column__c> createTestColumns() {
+    private static List<Column__c> createTestColumns() {
         if (testBoard == null) {
             testBoard = TestDataFactory.createBoard('Test Board');
         }
@@ -20,14 +20,14 @@ public class ColumnTriggerHandlerTest {
     // Test Before Insert Trigger
     @isTest
     static void testBeforeInsert() {
-        List<OpenSF__Column__c> columns = createTestColumns();
-        for (OpenSF__Column__c column : columns) {
+        List<Column__c> columns = createTestColumns();
+        for (Column__c column : columns) {
             column.Id = null;
         }
         Test.startTest();
         insert columns;
         Test.stopTest();
-        for (OpenSF__Column__c column : columns) {
+        for (Column__c column : columns) {
             System.assertNotEquals(
                 null,
                 column.Id,
@@ -39,14 +39,14 @@ public class ColumnTriggerHandlerTest {
     // Test After Insert Trigger
     @isTest
     static void testAfterInsert() {
-        List<OpenSF__Column__c> columns = createTestColumns();
-        for (OpenSF__Column__c column : columns) {
+        List<Column__c> columns = createTestColumns();
+        for (Column__c column : columns) {
             column.Id = null;
         }
         Test.startTest();
         insert columns;
         Test.stopTest();
-        for (OpenSF__Column__c column : columns) {
+        for (Column__c column : columns) {
             System.assertNotEquals(
                 null,
                 column.Id,
@@ -58,11 +58,11 @@ public class ColumnTriggerHandlerTest {
     // Test Before Update Trigger
     @isTest
     static void testBeforeUpdate() {
-        List<OpenSF__Column__c> columns = createTestColumns();
+        List<Column__c> columns = createTestColumns();
         Test.startTest();
         update columns;
         Test.stopTest();
-        for (OpenSF__Column__c column : columns) {
+        for (Column__c column : columns) {
             System.assertNotEquals(
                 null,
                 column.Id,
@@ -74,11 +74,11 @@ public class ColumnTriggerHandlerTest {
     // Test After Update Trigger
     @isTest
     static void testAfterUpdate() {
-        List<OpenSF__Column__c> columns = createTestColumns();
+        List<Column__c> columns = createTestColumns();
         Test.startTest();
         update columns;
         Test.stopTest();
-        for (OpenSF__Column__c column : columns) {
+        for (Column__c column : columns) {
             System.assertNotEquals(
                 null,
                 column.Id,
@@ -90,11 +90,11 @@ public class ColumnTriggerHandlerTest {
     // Test Before Delete Trigger
     @isTest
     static void testBeforeDelete() {
-        List<OpenSF__Column__c> columns = createTestColumns();
+        List<Column__c> columns = createTestColumns();
         Test.startTest();
         delete columns;
         Test.stopTest();
-        for (OpenSF__Column__c column : columns) {
+        for (Column__c column : columns) {
             System.assertNotEquals(
                 null,
                 column.Id,
@@ -106,11 +106,11 @@ public class ColumnTriggerHandlerTest {
     // Test After Delete Trigger
     @isTest
     static void testAfterDelete() {
-        List<OpenSF__Column__c> columns = createTestColumns();
+        List<Column__c> columns = createTestColumns();
         Test.startTest();
         delete columns;
         Test.stopTest();
-        for (OpenSF__Column__c column : columns) {
+        for (Column__c column : columns) {
             System.assertNotEquals(
                 null,
                 column.Id,
@@ -122,12 +122,12 @@ public class ColumnTriggerHandlerTest {
     // Test After Undelete Trigger
     @isTest
     static void testAfterUndelete() {
-        List<OpenSF__Column__c> columns = createTestColumns();
+        List<Column__c> columns = createTestColumns();
         delete columns;
         Test.startTest();
         undelete columns;
         Test.stopTest();
-        for (OpenSF__Column__c column : columns) {
+        for (Column__c column : columns) {
             System.assertNotEquals(
                 null,
                 column.Id,

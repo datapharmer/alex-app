@@ -11,7 +11,7 @@ public class CardDomain {
      * @description Handles logic to be executed before inserting new Card__c records.
      * @param newList The list of new Card__c records to be inserted.
      */
-    public static void handleBeforeInsert(List<OpenSF__Card__c> newList) {
+    public static void handleBeforeInsert(List<Card__c> newList) {
         // Future features can be added here
     }
 
@@ -19,7 +19,7 @@ public class CardDomain {
      * @description Handles logic to be executed after inserting new Card__c records.
      * @param newList The list of new Card__c records that have been inserted.
      */
-    public static void handleAfterInsert(List<OpenSF__Card__c> newList) {
+    public static void handleAfterInsert(List<Card__c> newList) {
         publishEvents(newList, 'CardCreate');
         countEpicCards(newList, null);
         countColumnCards(newList, null);
@@ -31,8 +31,8 @@ public class CardDomain {
      * @param oldList The list of old Card__c records with original values before the update.
      */
     public static void handleBeforeUpdate(
-        List<OpenSF__Card__c> newList,
-        List<OpenSF__Card__c> oldList
+        List<Card__c> newList,
+        List<Card__c> oldList
     ) {
         // Future features can be added here
     }
@@ -45,12 +45,12 @@ public class CardDomain {
      * @param oldMap A map of old Card__c records with their Ids as keys and the records as values.
      */
     public static void handleAfterUpdate(
-        List<OpenSF__Card__c> newList,
-        List<OpenSF__Card__c> oldList,
-        Map<Id, OpenSF__Card__c> oldMap
+        List<Card__c> newList,
+        List<Card__c> oldList,
+        Map<Id, Card__c> oldMap
     ) {
-        List<OpenSF__CardUpdateEvent__e> events = new List<OpenSF__CardUpdateEvent__e>();
-        for (OpenSF__Card__c card : newList) {
+        List<CardUpdateEvent__e> events = new List<CardUpdateEvent__e>();
+        for (Card__c card : newList) {
             if (hasCardChanged(card, oldMap.get(card.Id))) {
                 events.add(createEvent('CardUpdate', card));
             }
@@ -64,10 +64,10 @@ public class CardDomain {
      * @description Handles logic to be executed before deleting Card__c records.
      * @param oldList The list of Card__c records that are about to be deleted.
      */
-    public static void handleBeforeDelete(List<OpenSF__Card__c> oldList) {
+    public static void handleBeforeDelete(List<Card__c> oldList) {
         // Example logic: Prevent deletion if the card status is 'Locked'
-        for (OpenSF__Card__c card : oldList) {
-            if (card.OpenSF__Locked__c) {
+        for (Card__c card : oldList) {
+            if (card.Locked__c) {
                 card.addError('Locked cards cannot be deleted.');
             }
         }
@@ -77,7 +77,7 @@ public class CardDomain {
      * @description Handles logic to be executed after deleting Card__c records.
      * @param oldList The list of Card__c records that have been deleted.
      */
-    public static void handleAfterDelete(List<OpenSF__Card__c> oldList) {
+    public static void handleAfterDelete(List<Card__c> oldList) {
         publishEvents(oldList, 'CardDelete');
         countEpicCards(null, oldList);
         countColumnCards(null, oldList);
@@ -87,7 +87,7 @@ public class CardDomain {
      * @description Handles logic to be executed after undeleting Card__c records.
      * @param newList The list of Card__c records that have been undeleted.
      */
-    public static void handleAfterUndelete(List<OpenSF__Card__c> newList) {
+    public static void handleAfterUndelete(List<Card__c> newList) {
         // Future features can be added here
         countEpicCards(newList, null);
         countColumnCards(newList, null);
@@ -100,19 +100,19 @@ public class CardDomain {
      * @return Boolean indicating whether relevant fields have changed.
      */
     private static Boolean hasCardChanged(
-        OpenSF__Card__c newCard,
-        OpenSF__Card__c oldCard
+        Card__c newCard,
+        Card__c oldCard
     ) {
         Set<String> fieldsToCompare = new Set<String>{
-            'OpenSF__Assignee__c',
-            'OpenSF__CardType__c',
-            'OpenSF__Color__c',
-            'OpenSF__Column__c',
-            'OpenSF__Position__c',
-            'OpenSF__Priority__c',
-            'OpenSF__Status__c',
-            'OpenSF__StoryPoints__c',
-            'OpenSF__Subject__c'
+            'Assignee__c',
+            'CardType__c',
+            'Color__c',
+            'Column__c',
+            'Position__c',
+            'Priority__c',
+            'Status__c',
+            'StoryPoints__c',
+            'Subject__c'
         };
 
         for (String field : fieldsToCompare) {
@@ -129,24 +129,24 @@ public class CardDomain {
      * @param card The Card__c record for which the event is being created.
      * @return The CardUpdateEvent__e event object.
      */
-    private static OpenSF__CardUpdateEvent__e createEvent(
+    private static CardUpdateEvent__e createEvent(
         String eventType,
-        OpenSF__Card__c card
+        Card__c card
     ) {
-        return new OpenSF__CardUpdateEvent__e(
-            OpenSF__AssigneeId__c = card.OpenSF__Assignee__c,
-            OpenSF__CardColor__c = card.OpenSF__Color__c,
-            OpenSF__CardId__c = card.Id,
-            OpenSF__CardName__c = card.Name,
-            OpenSF__CardPosition__c = card.OpenSF__Position__c,
-            OpenSF__CardPriority__c = card.OpenSF__Priority__c,
-            OpenSF__CardStatus__c = card.OpenSF__Status__c,
-            OpenSF__CardSubject__c = card.OpenSF__Subject__c,
-            OpenSF__CardType__c = card.OpenSF__CardType__c,
-            OpenSF__ColumnId__c = card.OpenSF__Column__c,
-            OpenSF__EventType__c = eventType,
-            OpenSF__LastModifiedDate__c = card.LastModifiedDate,
-            OpenSF__StoryPoints__c = card.OpenSF__StoryPoints__c
+        return new CardUpdateEvent__e(
+            AssigneeId__c = card.Assignee__c,
+            CardColor__c = card.Color__c,
+            CardId__c = card.Id,
+            CardName__c = card.Name,
+            CardPosition__c = card.Position__c,
+            CardPriority__c = card.Priority__c,
+            CardStatus__c = card.Status__c,
+            CardSubject__c = card.Subject__c,
+            CardType__c = card.CardType__c,
+            ColumnId__c = card.Column__c,
+            EventType__c = eventType,
+            LastModifiedDate__c = card.LastModifiedDate,
+            StoryPoints__c = card.StoryPoints__c
         );
     }
 
@@ -156,11 +156,11 @@ public class CardDomain {
      * @param eventType The type of event to be published.
      */
     private static void publishEvents(
-        List<OpenSF__Card__c> cards,
+        List<Card__c> cards,
         String eventType
     ) {
-        List<OpenSF__CardUpdateEvent__e> events = new List<OpenSF__CardUpdateEvent__e>();
-        for (OpenSF__Card__c card : cards) {
+        List<CardUpdateEvent__e> events = new List<CardUpdateEvent__e>();
+        for (Card__c card : cards) {
             events.add(createEvent(eventType, card));
         }
         publishEvents(events);
@@ -170,7 +170,7 @@ public class CardDomain {
      * @description Publishes a list of CardUpdateEvent__e events to the EventBus.
      * @param events The list of CardUpdateEvent__e events to be published.
      */
-    private static void publishEvents(List<OpenSF__CardUpdateEvent__e> events) {
+    private static void publishEvents(List<CardUpdateEvent__e> events) {
         if (!events.isEmpty()) {
             EventBus.publish(events);
         }
@@ -182,8 +182,8 @@ public class CardDomain {
      * @param oldList The list of old Card__c records with original values before the update.
      */
     public static void countEpicCards(
-        List<OpenSF__Card__c> newList,
-        List<OpenSF__Card__c> oldList
+        List<Card__c> newList,
+        List<Card__c> oldList
     ) {
         if (newList == null || oldList == null) {
             return;
@@ -191,18 +191,18 @@ public class CardDomain {
 
         Set<Id> affectedEpicIds = new Set<Id>();
         for (Integer i = 0; i < newList.size(); i++) {
-            OpenSF__Card__c newCard = newList[i];
-            OpenSF__Card__c oldCard = (oldList.size() > i) ? oldList[i] : null;
+            Card__c newCard = newList[i];
+            Card__c oldCard = (oldList.size() > i) ? oldList[i] : null;
 
             if (
                 newCard != null &&
-                newCard.OpenSF__Epic__c != oldCard?.OpenSF__Epic__c
+                newCard.Epic__c != oldCard?.Epic__c
             ) {
-                if (oldCard?.OpenSF__Epic__c != null) {
-                    affectedEpicIds.add(oldCard.OpenSF__Epic__c);
+                if (oldCard?.Epic__c != null) {
+                    affectedEpicIds.add(oldCard.Epic__c);
                 }
-                if (newCard.OpenSF__Epic__c != null) {
-                    affectedEpicIds.add(newCard.OpenSF__Epic__c);
+                if (newCard.Epic__c != null) {
+                    affectedEpicIds.add(newCard.Epic__c);
                 }
             }
         }
@@ -216,12 +216,12 @@ public class CardDomain {
             epicCardCounts.put(epicId, BoardSelector.countEpicCards(epicId));
         }
 
-        List<OpenSF__Card__c> epicsToUpdate = new List<OpenSF__Card__c>();
+        List<Card__c> epicsToUpdate = new List<Card__c>();
         for (Id epicId : affectedEpicIds) {
             epicsToUpdate.add(
-                new OpenSF__Card__c(
+                new Card__c(
                     Id = epicId,
-                    OpenSF__EpicCardsCount__c = epicCardCounts.containsKey(
+                    EpicCardsCount__c = epicCardCounts.containsKey(
                             epicId
                         )
                         ? epicCardCounts.get(epicId)
@@ -241,23 +241,23 @@ public class CardDomain {
      * @param oldList The list of old Card__c records with original values before the update.
      */
     private static void countColumnCards(
-        List<OpenSF__Card__c> newList,
-        List<OpenSF__Card__c> oldList
+        List<Card__c> newList,
+        List<Card__c> oldList
     ) {
         Set<Id> affectedColumnIds = new Set<Id>();
 
         if (newList != null) {
-            for (OpenSF__Card__c newCard : newList) {
-                if (newCard.OpenSF__Column__c != null) {
-                    affectedColumnIds.add(newCard.OpenSF__Column__c);
+            for (Card__c newCard : newList) {
+                if (newCard.Column__c != null) {
+                    affectedColumnIds.add(newCard.Column__c);
                 }
             }
         }
 
         if (oldList != null) {
-            for (OpenSF__Card__c oldCard : oldList) {
-                if (oldCard.OpenSF__Column__c != null) {
-                    affectedColumnIds.add(oldCard.OpenSF__Column__c);
+            for (Card__c oldCard : oldList) {
+                if (oldCard.Column__c != null) {
+                    affectedColumnIds.add(oldCard.Column__c);
                 }
             }
         }

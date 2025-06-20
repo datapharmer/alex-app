@@ -4,7 +4,7 @@ public class CardTriggerHandlerTest {
     @testSetup
     static void setupTestData() {
         // User user = TestDataFactory.createStandardUser();
-        OpenSF__Board__c board = TestDataFactory.createBoard('Test Board');
+        Board__c board = TestDataFactory.createBoard('Test Board');
         TestDataFactory.createColumn(board.Id);
     }
 
@@ -13,14 +13,14 @@ public class CardTriggerHandlerTest {
     static void testBeforeInsert() {
         setupTestData();
         // Retrieve cards using SOQL
-        List<OpenSF__Card__c> cards = [SELECT Id FROM OpenSF__Card__c];
-        for (OpenSF__Card__c card : cards) {
+        List<Card__c> cards = [SELECT Id FROM Card__c];
+        for (Card__c card : cards) {
             card.Id = null;
         }
         Test.startTest();
         insert cards;
         Test.stopTest();
-        for (OpenSF__Card__c card : cards) {
+        for (Card__c card : cards) {
             System.assertNotEquals(
                 null,
                 card.Id,
@@ -34,14 +34,14 @@ public class CardTriggerHandlerTest {
     static void testAfterInsert() {
         setupTestData();
         // Retrieve cards using SOQL
-        List<OpenSF__Card__c> cards = [SELECT Id FROM OpenSF__Card__c];
-        for (OpenSF__Card__c card : cards) {
+        List<Card__c> cards = [SELECT Id FROM Card__c];
+        for (Card__c card : cards) {
             card.Id = null;
         }
         Test.startTest();
         insert cards;
         Test.stopTest();
-        for (OpenSF__Card__c card : cards) {
+        for (Card__c card : cards) {
             System.assertNotEquals(
                 null,
                 card.Id,
@@ -55,11 +55,11 @@ public class CardTriggerHandlerTest {
     static void testBeforeUpdate() {
         setupTestData();
         // Retrieve cards using SOQL
-        List<OpenSF__Card__c> cards = [SELECT Id FROM OpenSF__Card__c];
+        List<Card__c> cards = [SELECT Id FROM Card__c];
         Test.startTest();
         update cards;
         Test.stopTest();
-        for (OpenSF__Card__c card : cards) {
+        for (Card__c card : cards) {
             System.assertNotEquals(
                 null,
                 card.Id,
@@ -73,11 +73,11 @@ public class CardTriggerHandlerTest {
     static void testAfterUpdate() {
         setupTestData();
         // Retrieve cards using SOQL
-        List<OpenSF__Card__c> cards = [SELECT Id FROM OpenSF__Card__c];
+        List<Card__c> cards = [SELECT Id FROM Card__c];
         Test.startTest();
         update cards;
         Test.stopTest();
-        for (OpenSF__Card__c card : cards) {
+        for (Card__c card : cards) {
             System.assertNotEquals(
                 null,
                 card.Id,
@@ -91,11 +91,11 @@ public class CardTriggerHandlerTest {
     static void testBeforeDelete() {
         setupTestData();
         // Retrieve cards using SOQL
-        List<OpenSF__Card__c> cards = [SELECT Id FROM OpenSF__Card__c];
+        List<Card__c> cards = [SELECT Id FROM Card__c];
         Test.startTest();
         delete cards;
         Test.stopTest();
-        for (OpenSF__Card__c card : cards) {
+        for (Card__c card : cards) {
             System.assertNotEquals(
                 null,
                 card.Id,
@@ -109,11 +109,11 @@ public class CardTriggerHandlerTest {
     static void testAfterDelete() {
         setupTestData();
         // Retrieve cards using SOQL
-        List<OpenSF__Card__c> cards = [SELECT Id FROM OpenSF__Card__c];
+        List<Card__c> cards = [SELECT Id FROM Card__c];
         Test.startTest();
         delete cards;
         Test.stopTest();
-        for (OpenSF__Card__c card : cards) {
+        for (Card__c card : cards) {
             System.assertNotEquals(
                 null,
                 card.Id,
@@ -127,12 +127,12 @@ public class CardTriggerHandlerTest {
     static void testAfterUndelete() {
         setupTestData();
         // Retrieve cards using SOQL
-        List<OpenSF__Card__c> cards = [SELECT Id FROM OpenSF__Card__c];
+        List<Card__c> cards = [SELECT Id FROM Card__c];
         delete cards;
         Test.startTest();
         undelete cards;
         Test.stopTest();
-        for (OpenSF__Card__c card : cards) {
+        for (Card__c card : cards) {
             System.assertNotEquals(
                 null,
                 card.Id,

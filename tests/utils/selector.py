@@ -35,9 +35,9 @@ class Selector:
 
     @staticmethod
     def get_board_id():
-        query = "SELECT Id FROM OpenSF__Board__c WHERE Name = 'Playwright Test Board'"
+        query = "SELECT Id FROM Board__c WHERE Name = 'Playwright Test Board'"
         try:
-            print(f"Querying for OpenSF__Board__c with name 'Playwright Test Board'.")
+            print(f"Querying for Board__c with name 'Playwright Test Board'.")
             result = Selector.query_salesforce(query)
             if result and "result" in result:
                 records = result.get("result", {}).get("records", [])
@@ -46,7 +46,7 @@ class Selector:
                     return records[0]["Id"]
                 else:
                     raise Exception(
-                        "No records found for OpenSF__Board__c with name 'Playwright Test Board'."
+                        "No records found for Board__c with name 'Playwright Test Board'."
                     )
             else:
                 raise Exception(

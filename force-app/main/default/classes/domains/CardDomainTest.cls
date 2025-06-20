@@ -5,8 +5,8 @@ public class CardDomainTest {
         User user = TestDataFactory.createStandardUser();
         System.runAs(user) {
             // Create a test board and a column to use in all tests
-            OpenSF__Board__c board = TestDataFactory.createBoard('Test Board');
-            OpenSF__Column__c column = TestDataFactory.createColumn(board.Id);
+            Board__c board = TestDataFactory.createBoard('Test Board');
+            Column__c column = TestDataFactory.createColumn(board.Id);
 
             // Create a few test cards in the column
             TestDataFactory.createCards(column.Id, 3);
@@ -16,20 +16,20 @@ public class CardDomainTest {
     @isTest
     static void testHandleBeforeInsert() {
         // Test setup
-        OpenSF__Board__c board = TestDataFactory.createBoard(
+        Board__c board = TestDataFactory.createBoard(
             'Test Board Before Insert'
         );
-        OpenSF__Column__c column = TestDataFactory.createColumn(board.Id);
+        Column__c column = TestDataFactory.createColumn(board.Id);
 
         // Creating test cards to trigger before insert
-        List<OpenSF__Card__c> cards = new List<OpenSF__Card__c>{
-            new OpenSF__Card__c(
-                OpenSF__Column__c = column.Id,
-                OpenSF__Position__c = 1
+        List<Card__c> cards = new List<Card__c>{
+            new Card__c(
+                Column__c = column.Id,
+                Position__c = 1
             ),
-            new OpenSF__Card__c(
-                OpenSF__Column__c = column.Id,
-                OpenSF__Position__c = 2
+            new Card__c(
+                Column__c = column.Id,
+                Position__c = 2
             )
         };
 
@@ -42,8 +42,8 @@ public class CardDomainTest {
             2,
             [
                 SELECT COUNT()
-                FROM OpenSF__Card__c
-                WHERE OpenSF__Column__c = :column.Id
+                FROM Card__c
+                WHERE Column__c = :column.Id
             ],
             'The number of cards inserted does not match the expected value.'
         );
@@ -56,15 +56,15 @@ public class CardDomainTest {
     @isTest
     static void testHandleAfterInsert() {
         // Test setup
-        OpenSF__Board__c board = TestDataFactory.createBoard(
+        Board__c board = TestDataFactory.createBoard(
             'Test Board After Insert'
         );
-        OpenSF__Column__c column = TestDataFactory.createColumn(board.Id);
+        Column__c column = TestDataFactory.createColumn(board.Id);
 
         // Creating test cards to trigger after insert
-        OpenSF__Card__c card = new OpenSF__Card__c(
-            OpenSF__Column__c = column.Id,
-            OpenSF__Position__c = 1
+        Card__c card = new Card__c(
+            Column__c = column.Id,
+            Position__c = 1
         );
 
         Test.startTest();
@@ -76,8 +76,8 @@ public class CardDomainTest {
             1,
             [
                 SELECT COUNT()
-                FROM OpenSF__Card__c
-                WHERE OpenSF__Column__c = :column.Id
+                FROM Card__c
+                WHERE Column__c = :column.Id
             ],
             'The number of cards inserted does not match the expected value.'
         );
@@ -90,13 +90,13 @@ public class CardDomainTest {
     @isTest
     static void testHandleBeforeUpdate() {
         // Test setup
-        List<OpenSF__Card__c> cards = [
-            SELECT Id, OpenSF__Position__c, OpenSF__Column__c
-            FROM OpenSF__Card__c
+        List<Card__c> cards = [
+            SELECT Id, Position__c, Column__c
+            FROM Card__c
             LIMIT 1
         ];
-        OpenSF__Card__c cardToUpdate = cards[0];
-        cardToUpdate.OpenSF__Position__c = 2;
+        Card__c cardToUpdate = cards[0];
+        cardToUpdate.Position__c = 2;
 
         Test.startTest();
         update cardToUpdate;
@@ -112,27 +112,27 @@ public class CardDomainTest {
     @isTest
     static void testHandleAfterUpdate() {
         // Test setup
-        List<OpenSF__Card__c> cards = [
+        List<Card__c> cards = [
             SELECT
                 Id,
-                OpenSF__Position__c,
-                OpenSF__Status__c,
-                OpenSF__Priority__c,
-                OpenSF__Subject__c,
-                OpenSF__CardType__c,
-                OpenSF__StoryPoints__c
-            FROM OpenSF__Card__c
+                Position__c,
+                Status__c,
+                Priority__c,
+                Subject__c,
+                CardType__c,
+                StoryPoints__c
+            FROM Card__c
             LIMIT 1
         ];
-        OpenSF__Card__c cardToUpdate = cards[0];
+        Card__c cardToUpdate = cards[0];
 
         // Changing each field to trigger an event
-        cardToUpdate.OpenSF__Position__c = 5;
-        cardToUpdate.OpenSF__Status__c = 'Done';
-        cardToUpdate.OpenSF__Priority__c = 'High';
-        cardToUpdate.OpenSF__Subject__c = 'New Subject';
-        cardToUpdate.OpenSF__CardType__c = 'Bug';
-        cardToUpdate.OpenSF__StoryPoints__c = 10;
+        cardToUpdate.Position__c = 5;
+        cardToUpdate.Status__c = 'Done';
+        cardToUpdate.Priority__c = 'High';
+        cardToUpdate.Subject__c = 'New Subject';
+        cardToUpdate.CardType__c = 'Bug';
+        cardToUpdate.StoryPoints__c = 10;
 
         Test.startTest();
         update cardToUpdate;
@@ -145,13 +145,13 @@ public class CardDomainTest {
     @isTest
     static void testHandleBeforeDelete() {
         // Test setup
-        List<OpenSF__Card__c> cards = [
-            SELECT Id, OpenSF__Locked__c
-            FROM OpenSF__Card__c
+        List<Card__c> cards = [
+            SELECT Id, Locked__c
+            FROM Card__c
             LIMIT 1
         ];
-        OpenSF__Card__c cardToDelete = cards[0];
-        cardToDelete.OpenSF__Locked__c = true;
+        Card__c cardToDelete = cards[0];
+        cardToDelete.Locked__c = true;
         update cardToDelete; // Ensure the locked status is saved
 
         Test.startTest();
@@ -172,7 +172,7 @@ public class CardDomainTest {
     @isTest
     static void testHandleAfterDelete() {
         // Test setup
-        List<OpenSF__Card__c> cards = [SELECT Id FROM OpenSF__Card__c LIMIT 1];
+        List<Card__c> cards = [SELECT Id FROM Card__c LIMIT 1];
 
         Test.startTest();
         delete cards;
@@ -183,7 +183,7 @@ public class CardDomainTest {
             0,
             [
                 SELECT COUNT()
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE Id = :cards[0].Id
             ],
             'The card was not deleted as expected.'
@@ -196,11 +196,11 @@ public class CardDomainTest {
     @isTest
     static void testHandleAfterUndelete() {
         // Test setup: create and delete a card
-        OpenSF__Board__c board = TestDataFactory.createBoard(
+        Board__c board = TestDataFactory.createBoard(
             'Test Board After Undelete'
         );
-        OpenSF__Column__c column = TestDataFactory.createColumn(board.Id);
-        OpenSF__Card__c card = TestDataFactory.createCard(column.Id, 1);
+        Column__c column = TestDataFactory.createColumn(board.Id);
+        Card__c card = TestDataFactory.createCard(column.Id, 1);
 
         delete card;
 
@@ -213,7 +213,7 @@ public class CardDomainTest {
             1,
             [
                 SELECT COUNT()
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE Id = :card.Id
             ],
             'The card was not undeleted as expected.'
@@ -226,28 +226,28 @@ public class CardDomainTest {
     @isTest
     static void testCountEpicCards() {
         // Test setup
-        OpenSF__Board__c board = TestDataFactory.createBoard(
+        Board__c board = TestDataFactory.createBoard(
             'Test Board for Epic'
         );
-        OpenSF__Column__c column = TestDataFactory.createColumn(board.Id);
-        OpenSF__Card__c epic = TestDataFactory.createEpic();
+        Column__c column = TestDataFactory.createColumn(board.Id);
+        Card__c epic = TestDataFactory.createEpic();
 
         // Create cards in the column using TestDataFactory
-        List<OpenSF__Card__c> cards = TestDataFactory.createCards(column.Id, 2);
+        List<Card__c> cards = TestDataFactory.createCards(column.Id, 2);
 
         // Update cards to associate them with the epic
-        for (OpenSF__Card__c card : cards) {
-            card.OpenSF__Epic__c = epic.Id;
+        for (Card__c card : cards) {
+            card.Epic__c = epic.Id;
         }
         Test.startTest();
         update cards;
         Test.stopTest();
 
         // Verify the epic card count
-        List<OpenSF__Card__c> epicCards = [
-            SELECT OpenSF__EpicCardsCount__c
-            FROM OpenSF__Card__c
-            WHERE OpenSF__Epic__c = :epic.Id
+        List<Card__c> epicCards = [
+            SELECT EpicCardsCount__c
+            FROM Card__c
+            WHERE Epic__c = :epic.Id
         ];
         System.assertEquals(
             2,
@@ -259,57 +259,57 @@ public class CardDomainTest {
     @isTest
     static void testCountColumnCards() {
         // Step 1: Test setup
-        OpenSF__Board__c board = TestDataFactory.createBoard('Test Board');
-        OpenSF__Column__c column1 = TestDataFactory.createColumn(board.Id);
-        OpenSF__Column__c column2 = TestDataFactory.createColumn(board.Id);
+        Board__c board = TestDataFactory.createBoard('Test Board');
+        Column__c column1 = TestDataFactory.createColumn(board.Id);
+        Column__c column2 = TestDataFactory.createColumn(board.Id);
 
         // Create cards associated with column1
-        List<OpenSF__Card__c> cards = TestDataFactory.createCards(
+        List<Card__c> cards = TestDataFactory.createCards(
             column1.Id,
             3
         );
 
         // Verify initial card count on column1
-        OpenSF__Column__c refreshedColumn1 = [
-            SELECT OpenSF__CardCount__c
-            FROM OpenSF__Column__c
+        Column__c refreshedColumn1 = [
+            SELECT CardCount__c
+            FROM Column__c
             WHERE Id = :column1.Id
         ];
         System.assertEquals(
             3,
-            refreshedColumn1.OpenSF__CardCount__c,
+            refreshedColumn1.CardCount__c,
             'Initial card count should be 3'
         );
 
         Test.startTest();
 
         // Step 2: Update the Column__c field for one card to column2
-        OpenSF__Card__c updatedCard = cards[0];
-        updatedCard.OpenSF__Column__c = column2.Id;
+        Card__c updatedCard = cards[0];
+        updatedCard.Column__c = column2.Id;
         update updatedCard;
 
         Test.stopTest();
 
         // Step 3: Verify the updated card counts
         refreshedColumn1 = [
-            SELECT OpenSF__CardCount__c
-            FROM OpenSF__Column__c
+            SELECT CardCount__c
+            FROM Column__c
             WHERE Id = :column1.Id
         ];
-        OpenSF__Column__c refreshedColumn2 = [
-            SELECT OpenSF__CardCount__c
-            FROM OpenSF__Column__c
+        Column__c refreshedColumn2 = [
+            SELECT CardCount__c
+            FROM Column__c
             WHERE Id = :column2.Id
         ];
 
         System.assertEquals(
             2,
-            refreshedColumn1.OpenSF__CardCount__c,
+            refreshedColumn1.CardCount__c,
             'Card count for column1 should decrease to 2'
         );
         System.assertEquals(
             1,
-            refreshedColumn2.OpenSF__CardCount__c,
+            refreshedColumn2.CardCount__c,
             'Card count for column2 should increase to 1'
         );
     }
@@ -317,21 +317,21 @@ public class CardDomainTest {
     @isTest
     static void testDeleteCards() {
         // Step 1: Test setup
-        OpenSF__Board__c board = TestDataFactory.createBoard('Test Board');
-        OpenSF__Column__c column = TestDataFactory.createColumn(board.Id);
+        Board__c board = TestDataFactory.createBoard('Test Board');
+        Column__c column = TestDataFactory.createColumn(board.Id);
 
         // Create multiple cards associated with the column
-        List<OpenSF__Card__c> cards = TestDataFactory.createCards(column.Id, 3);
+        List<Card__c> cards = TestDataFactory.createCards(column.Id, 3);
 
         // Verify initial card count
-        OpenSF__Column__c refreshedColumn = [
-            SELECT OpenSF__CardCount__c
-            FROM OpenSF__Column__c
+        Column__c refreshedColumn = [
+            SELECT CardCount__c
+            FROM Column__c
             WHERE Id = :column.Id
         ];
         System.assertEquals(
             3,
-            refreshedColumn.OpenSF__CardCount__c,
+            refreshedColumn.CardCount__c,
             'Initial card count should be 3'
         );
 
@@ -344,13 +344,13 @@ public class CardDomainTest {
 
         // Step 3: Verify card count decreases
         refreshedColumn = [
-            SELECT OpenSF__CardCount__c
-            FROM OpenSF__Column__c
+            SELECT CardCount__c
+            FROM Column__c
             WHERE Id = :column.Id
         ];
         System.assertEquals(
             2,
-            refreshedColumn.OpenSF__CardCount__c,
+            refreshedColumn.CardCount__c,
             'Card count should decrease to 2'
         );
     }

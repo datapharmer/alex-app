@@ -1,4 +1,4 @@
-trigger CardTrigger on OpenSF__Card__c(
+trigger CardTrigger on Card__c(
     before insert,
     after insert,
     before update,

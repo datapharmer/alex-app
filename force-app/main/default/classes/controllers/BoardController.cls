@@ -29,11 +29,11 @@ public with sharing class BoardController {
      * @throws AuraHandledException if there is an error updating the cards.
      */
     @AuraEnabled
-    public static List<OpenSF__Card__c> updateCards(
-        List<OpenSF__Card__c> cards
+    public static List<Card__c> updateCards(
+        List<Card__c> cards
     ) {
         try {
-            List<OpenSF__Card__c> updatedCards = BoardService.updateCards(
+            List<Card__c> updatedCards = BoardService.updateCards(
                 cards
             );
             return updatedCards;
@@ -52,9 +52,9 @@ public with sharing class BoardController {
      * @throws AuraHandledException if there is an error creating the card.
      */
     @AuraEnabled
-    public static OpenSF__Card__c createCard(Id columnId, String columnStatus) {
+    public static Card__c createCard(Id columnId, String columnStatus) {
         try {
-            OpenSF__Card__c newCard = BoardService.createCard(
+            Card__c newCard = BoardService.createCard(
                 columnId,
                 columnStatus
             );

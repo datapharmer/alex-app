@@ -4,11 +4,11 @@ public class CardRepositoryTest {
     static void setupTestData() {
         User user = TestDataFactory.createStandardUser();
         System.runAs(user) {
-            OpenSF__Board__c board = TestDataFactory.createBoard('Test Board');
-            OpenSF__Column__c column = TestDataFactory.createColumn(board.Id);
-            insert new OpenSF__Card__c(
-                OpenSF__Column__c = column.Id,
-                OpenSF__Position__c = 1
+            Board__c board = TestDataFactory.createBoard('Test Board');
+            Column__c column = TestDataFactory.createColumn(board.Id);
+            insert new Card__c(
+                Column__c = column.Id,
+                Position__c = 1
             );
         }
     }
@@ -16,15 +16,15 @@ public class CardRepositoryTest {
     @isTest
     static void testCreateCard() {
         // Arrange
-        OpenSF__Board__c board = TestDataFactory.createBoard('Test Board');
-        OpenSF__Column__c column = TestDataFactory.createColumn(board.Id);
+        Board__c board = TestDataFactory.createBoard('Test Board');
+        Column__c column = TestDataFactory.createColumn(board.Id);
 
         // Act
         Test.startTest();
-        OpenSF__Card__c createdCard = CardRepository.createCard(
-            new OpenSF__Card__c(
-                OpenSF__Column__c = column.Id,
-                OpenSF__Position__c = 1
+        Card__c createdCard = CardRepository.createCard(
+            new Card__c(
+                Column__c = column.Id,
+                Position__c = 1
             )
         );
         Test.stopTest();
@@ -37,7 +37,7 @@ public class CardRepositoryTest {
         );
         System.assertEquals(
             column.Id,
-            createdCard.OpenSF__Column__c,
+            createdCard.Column__c,
             'Card should belong to the correct column'
         );
     }
@@ -45,13 +45,13 @@ public class CardRepositoryTest {
     @isTest
     static void testUpdateCards() {
         // Arrange
-        OpenSF__Board__c board = TestDataFactory.createBoard('Test Board');
-        OpenSF__Column__c column = TestDataFactory.createColumn(board.Id);
-        List<OpenSF__Card__c> cards = TestDataFactory.createCards(column.Id, 3);
+        Board__c board = TestDataFactory.createBoard('Test Board');
+        Column__c column = TestDataFactory.createColumn(board.Id);
+        List<Card__c> cards = TestDataFactory.createCards(column.Id, 3);
 
         // Modify card positions
         for (Integer i = 0; i < cards.size(); i++) {
-            cards[i].OpenSF__Position__c = i + 10;
+            cards[i].Position__c = i + 10;
         }
 
         // Act
@@ -60,9 +60,9 @@ public class CardRepositoryTest {
         Test.stopTest();
 
         // Reload cards from the database to verify update
-        List<OpenSF__Card__c> updatedCards = [
-            SELECT Id, OpenSF__Position__c
-            FROM OpenSF__Card__c
+        List<Card__c> updatedCards = [
+            SELECT Id, Position__c
+            FROM Card__c
             WHERE Id IN :cards
         ];
 
@@ -70,7 +70,7 @@ public class CardRepositoryTest {
         for (Integer i = 0; i < updatedCards.size(); i++) {
             System.assertEquals(
                 i + 10,
-                updatedCards[i].OpenSF__Position__c,
+                updatedCards[i].Position__c,
                 'Card position should be updated correctly'
             );
         }

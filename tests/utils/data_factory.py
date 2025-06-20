@@ -83,7 +83,7 @@ class DataFactory:
         """Master method to generate dynamic setups of the board."""
         board_name = "Playwright Test Board"
         existing_board = Selector.query_salesforce(
-            f"SELECT Id FROM OpenSF__Board__c WHERE Name='{board_name}'"
+            f"SELECT Id FROM Board__c WHERE Name='{board_name}'"
         )
         if existing_board["result"]["totalSize"] > 0:
             print(f"Board '{board_name}' already exists.")
@@ -110,7 +110,7 @@ class DataFactory:
 
         for board in data["boards"]:
             print(f"Creating Board: {board['Name']}")
-            command = f'sf data create record --sobject OpenSF__Board__c --values "Name=\'{board["Name"]}\'" --json'
+            command = f'sf data create record --sobject Board__c --values "Name=\'{board["Name"]}\'" --json'
             result = Salesforce.execute_sf_command(command)
             if "DEP0040" in result.stderr:
                 print("Deprecation warning ignored: ", result.stderr)
@@ -122,8 +122,8 @@ class DataFactory:
             parent_board_id = board_id
 
             command = (
-                f"sf data create record --sobject OpenSF__Column__c "
-                f'--values "OpenSF__Position__c={column_["Position"]} OpenSF__Board__c=\'{parent_board_id}\' OpenSF__ColumnHeader__c=\'{column_["ColumnHeader"]}\'" --json'
+                f"sf data create record --sobject Column__c "
+                f'--values "Position__c={column_["Position"]} Board__c=\'{parent_board_id}\' ColumnHeader__c=\'{column_["ColumnHeader"]}\'" --json'
             )
             result = Salesforce.execute_sf_command(command)
             if "DEP0040" in result.stderr:
@@ -146,8 +146,8 @@ class DataFactory:
                 f"Creating Card at position {card['Position']} on column ID: {column_id}"
             )
             command = (
-                f"sf data create record --sobject OpenSF__Card__c "
-                f'--values "OpenSF__Position__c={card["Position"]} OpenSF__Column__c=\'{column_id}\'" --json'
+                f"sf data create record --sobject Card__c "
+                f'--values "Position__c={card["Position"]} Column__c=\'{column_id}\'" --json'
             )
             result = Salesforce.execute_sf_command(command)
             if "DEP0040" in result.stderr:
@@ -159,7 +159,7 @@ class DataFactory:
     def add_board(name):
         print(f"Adding board with name: {name}")
         """Add a single board record."""
-        command = f"sf data create record --sobject OpenSF__Board__c --values \"Name='{name}'\" --json"
+        command = f"sf data create record --sobject Board__c --values \"Name='{name}'\" --json"
         result = Salesforce.execute_sf_command(command)
         if "DEP0040" in result.stderr:
             print("Deprecation warning ignored: ", result.stderr)
@@ -174,8 +174,8 @@ class DataFactory:
         )
         """Add a single column record."""
         command = (
-            f"sf data create record --sobject OpenSF__Column__c "
-            f"--values \"OpenSF__Position__c={position} OpenSF__Board__c='{board_id}' OpenSF__ColumnHeader__c='{column_header}'\" --json"
+            f"sf data create record --sobject Column__c "
+            f"--values \"Position__c={position} Board__c='{board_id}' ColumnHeader__c='{column_header}'\" --json"
         )
         result = Salesforce.execute_sf_command(command)
         if "DEP0040" in result.stderr:
@@ -189,8 +189,8 @@ class DataFactory:
         print(f"Adding card at position {position} to column ID: {column_id}")
         """Add a single card record."""
         command = (
-            f"sf data create record --sobject OpenSF__Card__c "
-            f"--values \"OpenSF__Position__c={position} OpenSF__Column__c='{column_id}'\" --json"
+            f"sf data create record --sobject Card__c "
+            f"--values \"Position__c={position} Column__c='{column_id}'\" --json"
         )
         result = Salesforce.execute_sf_command(command)
         if "DEP0040" in result.stderr:

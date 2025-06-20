@@ -5,10 +5,10 @@ public class BoardControllerTest {
         User user = TestDataFactory.createStandardUser();
         System.runAs(user) {
             // Set up a test board, column, and some cards
-            OpenSF__Board__c testBoard = TestDataFactory.createBoard(
+            Board__c testBoard = TestDataFactory.createBoard(
                 'Test Board'
             );
-            OpenSF__Column__c testColumn = TestDataFactory.createColumn(
+            Column__c testColumn = TestDataFactory.createColumn(
                 testBoard.Id
             );
             TestDataFactory.createCards(testColumn.Id, 3);
@@ -18,7 +18,7 @@ public class BoardControllerTest {
     @isTest
     static void testFetchBoardData() {
         // Retrieve the test board
-        OpenSF__Board__c board = [SELECT Id FROM OpenSF__Board__c LIMIT 1];
+        Board__c board = [SELECT Id FROM Board__c LIMIT 1];
 
         Test.startTest();
 
@@ -34,21 +34,21 @@ public class BoardControllerTest {
     @isTest
     static void testUpdateCards() {
         // Retrieve the test cards
-        List<OpenSF__Card__c> cards = [
-            SELECT Id, OpenSF__Column__c, OpenSF__Position__c
-            FROM OpenSF__Card__c
+        List<Card__c> cards = [
+            SELECT Id, Column__c, Position__c
+            FROM Card__c
             LIMIT 3
         ];
 
         // Modify positions for testing update
         for (Integer i = 0; i < cards.size(); i++) {
-            cards[i].OpenSF__Position__c = i + 10; // Arbitrary new positions for test
+            cards[i].Position__c = i + 10; // Arbitrary new positions for test
         }
 
         Test.startTest();
 
         // Call the updateCards method
-        List<OpenSF__Card__c> updatedCards = BoardController.updateCards(cards);
+        List<Card__c> updatedCards = BoardController.updateCards(cards);
 
         Test.stopTest();
 
@@ -62,7 +62,7 @@ public class BoardControllerTest {
         for (Integer i = 0; i < updatedCards.size(); i++) {
             System.assertEquals(
                 i + 10,
-                updatedCards[i].OpenSF__Position__c,
+                updatedCards[i].Position__c,
                 'Card position should be updated correctly'
             );
         }
@@ -71,12 +71,12 @@ public class BoardControllerTest {
     @isTest
     static void testCreateCard() {
         // Retrieve the test column
-        OpenSF__Column__c column = [SELECT Id FROM OpenSF__Column__c LIMIT 1];
+        Column__c column = [SELECT Id FROM Column__c LIMIT 1];
 
         Test.startTest();
 
         // Call the createCard method
-        OpenSF__Card__c newCard = BoardController.createCard(
+        Card__c newCard = BoardController.createCard(
             column.Id,
             'In Progress'
         );
@@ -87,12 +87,12 @@ public class BoardControllerTest {
         System.assert(newCard != null, 'Expected a new card to be created');
         System.assertEquals(
             column.Id,
-            newCard.OpenSF__Column__c,
+            newCard.Column__c,
             'New card should be associated with the correct column'
         );
         System.assertEquals(
             'In Progress',
-            newCard.OpenSF__Status__c,
+            newCard.Status__c,
             'New card should have the correct status'
         );
     }

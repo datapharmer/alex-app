@@ -7,16 +7,16 @@ public with sharing class CardRepository {
     /**
      * @description Create a Card in the database.
      * @param card A Card object to be created.
-     * @return The created OpenSF__Card__c object.
+     * @return The created Card__c object.
      */
-    public static OpenSF__Card__c createCard(OpenSF__Card__c card) {
+    public static Card__c createCard(Card__c card) {
         // Perform FLS check for the object and its fields
         if (!Test.isRunningTest()) {
             if (
-                !Schema.sObjectType.OpenSF__Card__c.isCreateable() ||
-                !Schema.sObjectType.OpenSF__Card__c.fields.OpenSF__Column__c.isCreateable() ||
-                !Schema.sObjectType.OpenSF__Card__c.fields.OpenSF__Position__c.isCreateable() ||
-                !Schema.sObjectType.OpenSF__Card__c.fields.OpenSF__Status__c.isCreateable()
+                !Schema.sObjectType.Card__c.isCreateable() ||
+                !Schema.sObjectType.Card__c.fields.Column__c.isCreateable() ||
+                !Schema.sObjectType.Card__c.fields.Position__c.isCreateable() ||
+                !Schema.sObjectType.Card__c.fields.Status__c.isCreateable()
             ) {
                 throw new AuraHandledException(
                     'Insufficient privileges to create a Card record or one or more fields on the Card record.'

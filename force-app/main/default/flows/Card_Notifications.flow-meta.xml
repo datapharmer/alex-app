@@ -175,7 +175,7 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>$Record.OpenSF__Position__c</leftValueReference>
+                <leftValueReference>$Record.Position__c</leftValueReference>
                 <operator>IsChanged</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>

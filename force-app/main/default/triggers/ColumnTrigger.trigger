@@ -1,4 +1,4 @@
-trigger ColumnTrigger on OpenSF__Column__c(
+trigger ColumnTrigger on Column__c(
     before insert,
     after insert,
     before update,

@@ -7,16 +7,16 @@ public with sharing class ColumnRepository {
     /**
      * @description Create a Column in the database.
      * @param column A Column object to be created.
-     * @return The created OpenSF__Column__c object.
+     * @return The created Column__c object.
      */
-    public static OpenSF__Column__c createColumn(OpenSF__Column__c column) {
+    public static Column__c createColumn(Column__c column) {
         // Perform FLS check for the object and its fields
         if (!Test.isRunningTest()) {
             if (
-                !Schema.sObjectType.OpenSF__Column__c.isCreateable() ||
-                !Schema.sObjectType.OpenSF__Column__c.fields.OpenSF__ColumnHeader__c.isCreateable() ||
-                !Schema.sObjectType.OpenSF__Column__c.fields.OpenSF__Board__c.isCreateable() ||
-                !Schema.sObjectType.OpenSF__Column__c.fields.OpenSF__Position__c.isCreateable()
+                !Schema.sObjectType.Column__c.isCreateable() ||
+                !Schema.sObjectType.Column__c.fields.ColumnHeader__c.isCreateable() ||
+                !Schema.sObjectType.Column__c.fields.Board__c.isCreateable() ||
+                !Schema.sObjectType.Column__c.fields.Position__c.isCreateable()
             ) {
                 throw new AuraHandledException(
                     'Insufficient privileges to create a Column record or one or more fields on the Column record.'

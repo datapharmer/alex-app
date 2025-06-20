@@ -68,7 +68,7 @@ class Utils:
         if board_id:
             base_url = Utils.get_base_url()
             board_url = f"{
-                base_url}/lightning/r/OpenSF__Board__c/{board_id}/view"
+                base_url}/lightning/r/Board__c/{board_id}/view"
             print(f"Board URL: {board_url}")
 
             if "DEP0040" in board_url:

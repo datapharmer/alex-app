@@ -5,7 +5,7 @@ public with sharing class ColumnDomainTest {
         User user = TestDataFactory.createStandardUser();
         System.runAs(user) {
             // Create a test board to use in all tests
-            OpenSF__Board__c board = TestDataFactory.createBoard('Test Board');
+            Board__c board = TestDataFactory.createBoard('Test Board');
             // Create a few test columns in the board
             TestDataFactory.createColumns(board.Id, 3);
         }
@@ -14,17 +14,17 @@ public with sharing class ColumnDomainTest {
     @isTest
     static void testHandleBeforeInsert() {
         // Test setup
-        OpenSF__Board__c board = TestDataFactory.createBoard(
+        Board__c board = TestDataFactory.createBoard(
             'Test Board Before Insert'
         );
-        List<OpenSF__Column__c> columns = new List<OpenSF__Column__c>{
-            new OpenSF__Column__c(
-                OpenSF__Board__c = board.Id,
-                OpenSF__Position__c = 1
+        List<Column__c> columns = new List<Column__c>{
+            new Column__c(
+                Board__c = board.Id,
+                Position__c = 1
             ),
-            new OpenSF__Column__c(
-                OpenSF__Board__c = board.Id,
-                OpenSF__Position__c = 2
+            new Column__c(
+                Board__c = board.Id,
+                Position__c = 2
             )
         };
 
@@ -37,8 +37,8 @@ public with sharing class ColumnDomainTest {
             2,
             [
                 SELECT COUNT()
-                FROM OpenSF__Column__c
-                WHERE OpenSF__Board__c = :board.Id
+                FROM Column__c
+                WHERE Board__c = :board.Id
             ],
             'The number of columns inserted does not match the expected value.'
         );
@@ -47,12 +47,12 @@ public with sharing class ColumnDomainTest {
     @isTest
     static void testHandleAfterInsert() {
         // Test setup
-        OpenSF__Board__c board = TestDataFactory.createBoard(
+        Board__c board = TestDataFactory.createBoard(
             'Test Board After Insert'
         );
-        OpenSF__Column__c column = new OpenSF__Column__c(
-            OpenSF__Board__c = board.Id,
-            OpenSF__Position__c = 1
+        Column__c column = new Column__c(
+            Board__c = board.Id,
+            Position__c = 1
         );
 
         Test.startTest();
@@ -64,8 +64,8 @@ public with sharing class ColumnDomainTest {
             1,
             [
                 SELECT COUNT()
-                FROM OpenSF__Column__c
-                WHERE OpenSF__Board__c = :board.Id
+                FROM Column__c
+                WHERE Board__c = :board.Id
             ],
             'The number of columns inserted does not match the expected value.'
         );
@@ -74,16 +74,16 @@ public with sharing class ColumnDomainTest {
     @isTest
     static void testHandleAfterUpdate() {
         // Test setup
-        List<OpenSF__Column__c> columns = [
-            SELECT Id, OpenSF__Position__c, OpenSF__Status__c
-            FROM OpenSF__Column__c
+        List<Column__c> columns = [
+            SELECT Id, Position__c, Status__c
+            FROM Column__c
             LIMIT 1
         ];
-        OpenSF__Column__c columnToUpdate = columns[0];
+        Column__c columnToUpdate = columns[0];
 
         // Changing each field to trigger an event
-        columnToUpdate.OpenSF__Position__c = 5;
-        columnToUpdate.OpenSF__Status__c = 'Done';
+        columnToUpdate.Position__c = 5;
+        columnToUpdate.Status__c = 'Done';
 
         Test.startTest();
         update columnToUpdate;
@@ -96,14 +96,14 @@ public with sharing class ColumnDomainTest {
     @isTest
     static void testHandleBeforeDelete() {
         // Test setup
-        OpenSF__Board__c board = TestDataFactory.createBoard(
+        Board__c board = TestDataFactory.createBoard(
             'Test Board Before Delete'
         );
-        OpenSF__Column__c column = TestDataFactory.createColumn(board.Id);
+        Column__c column = TestDataFactory.createColumn(board.Id);
 
         // Add a card to the column to test the exception
-        OpenSF__Card__c card = new OpenSF__Card__c(
-            OpenSF__Column__c = column.Id
+        Card__c card = new Card__c(
+            Column__c = column.Id
         );
         insert card;
 
@@ -126,9 +126,9 @@ public with sharing class ColumnDomainTest {
     @isTest
     static void testHandleAfterDelete() {
         // Test setup
-        List<OpenSF__Column__c> columns = [
+        List<Column__c> columns = [
             SELECT Id
-            FROM OpenSF__Column__c
+            FROM Column__c
             LIMIT 1
         ];
 
@@ -139,7 +139,7 @@ public with sharing class ColumnDomainTest {
         // Verifying the column was deleted
         System.assertEquals(
             0,
-            [SELECT COUNT() FROM OpenSF__Column__c WHERE Id = :columns[0].Id],
+            [SELECT COUNT() FROM Column__c WHERE Id = :columns[0].Id],
             'The column was not deleted as expected.'
         );
 
@@ -150,10 +150,10 @@ public with sharing class ColumnDomainTest {
     @isTest
     static void testHandleAfterUndelete() {
         // Test setup: create and delete a column
-        OpenSF__Board__c board = TestDataFactory.createBoard(
+        Board__c board = TestDataFactory.createBoard(
             'Test Board After Undelete'
         );
-        OpenSF__Column__c column = TestDataFactory.createColumn(board.Id);
+        Column__c column = TestDataFactory.createColumn(board.Id);
 
         delete column;
 
@@ -164,7 +164,7 @@ public with sharing class ColumnDomainTest {
         // Verifying the column was undeleted
         System.assertEquals(
             1,
-            [SELECT COUNT() FROM OpenSF__Column__c WHERE Id = :column.Id],
+            [SELECT COUNT() FROM Column__c WHERE Id = :column.Id],
             'The column was not undeleted as expected.'
         );
 

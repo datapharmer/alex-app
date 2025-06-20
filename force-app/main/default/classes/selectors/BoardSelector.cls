@@ -16,22 +16,22 @@ public with sharing class BoardSelector {
      * @param boardId The Id of the board to retrieve.
      * @return The board record, or null if not found.
      */
-    public static OpenSF__Board__c getBoardById(Id boardId) {
+    public static Board__c getBoardById(Id boardId) {
         if (boardId == null) {
             return null;
         }
-        List<OpenSF__Board__c> boardRecords;
+        List<Board__c> boardRecords;
         if (isTestRunning) {
             boardRecords = [
                 SELECT Id, Name, LastModifiedDate
-                FROM OpenSF__Board__c
+                FROM Board__c
                 WHERE Id = :boardId
                 LIMIT 1
             ];
         } else {
             boardRecords = [
                 SELECT Id, Name, LastModifiedDate
-                FROM OpenSF__Board__c
+                FROM Board__c
                 WHERE Id = :boardId
                 WITH SECURITY_ENFORCED
                 LIMIT 1
@@ -45,9 +45,9 @@ public with sharing class BoardSelector {
      * @param boardId The Id of the board whose columns are to be retrieved.
      * @return A list of columns associated with the specified board.
      */
-    public static List<OpenSF__Column__c> getColumnsByBoardId(Id boardId) {
+    public static List<Column__c> getColumnsByBoardId(Id boardId) {
         if (boardId == null) {
-            return new List<OpenSF__Column__c>();
+            return new List<Column__c>();
         }
         if (isTestRunning) {
             return [
@@ -60,7 +60,7 @@ public with sharing class BoardSelector {
                     OpenSF__Position__c,
                     OpenSF__Status__c,
                     LastModifiedDate
-                FROM OpenSF__Column__c
+                FROM Column__c
                 WHERE OpenSF__Board__c = :boardId
                 ORDER BY OpenSF__Position__c
             ];
@@ -75,7 +75,7 @@ public with sharing class BoardSelector {
                     OpenSF__Position__c,
                     OpenSF__Status__c,
                     LastModifiedDate
-                FROM OpenSF__Column__c
+                FROM Column__c
                 WHERE OpenSF__Board__c = :boardId
                 WITH SECURITY_ENFORCED
                 ORDER BY OpenSF__Position__c
@@ -88,9 +88,9 @@ public with sharing class BoardSelector {
      * @param columnIds The set of column Ids whose cards are to be retrieved.
      * @return A list of cards associated with the specified columns.
      */
-    public static List<OpenSF__Card__c> getCardsByColumnIds(Set<Id> columnIds) {
+    public static List<Card__c> getCardsByColumnIds(Set<Id> columnIds) {
         if (columnIds == null || columnIds.isEmpty()) {
-            return new List<OpenSF__Card__c>();
+            return new List<Card__c>();
         }
         if (isTestRunning) {
             return [
@@ -109,7 +109,7 @@ public with sharing class BoardSelector {
                     OpenSF__Assignee__r.SmallPhotoUrl,
                     OpenSF__Position__c,
                     LastModifiedDate
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE OpenSF__Column__c IN :columnIds
                 ORDER BY OpenSF__Position__c
             ];
@@ -130,7 +130,7 @@ public with sharing class BoardSelector {
                     OpenSF__Assignee__r.SmallPhotoUrl,
                     OpenSF__Position__c,
                     LastModifiedDate
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE OpenSF__Column__c IN :columnIds
                 WITH SECURITY_ENFORCED
                 ORDER BY OpenSF__Position__c
@@ -143,9 +143,9 @@ public with sharing class BoardSelector {
      * @param columnId The Id of the column whose cards are to be retrieved.
      * @return A list of cards associated with the specified column.
      */
-    public static List<OpenSF__Card__c> getCardsByColumnId(Id columnId) {
+    public static List<Card__c> getCardsByColumnId(Id columnId) {
         if (columnId == null) {
-            return new List<OpenSF__Card__c>();
+            return new List<Card__c>();
         }
         if (isTestRunning) {
             return [
@@ -164,7 +164,7 @@ public with sharing class BoardSelector {
                     OpenSF__Assignee__r.SmallPhotoUrl,
                     OpenSF__Position__c,
                     LastModifiedDate
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE OpenSF__Column__c = :columnId
                 ORDER BY OpenSF__Position__c
             ];
@@ -185,7 +185,7 @@ public with sharing class BoardSelector {
                     OpenSF__Assignee__r.SmallPhotoUrl,
                     OpenSF__Position__c,
                     LastModifiedDate
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE OpenSF__Column__c = :columnId
                 WITH SECURITY_ENFORCED
                 ORDER BY OpenSF__Position__c
@@ -198,11 +198,11 @@ public with sharing class BoardSelector {
      * @param cardId The Id of the card to retrieve.
      * @return The card record, or null if not found.
      */
-    public static OpenSF__Card__c getCardById(Id cardId) {
+    public static Card__c getCardById(Id cardId) {
         if (cardId == null) {
             return null;
         }
-        List<OpenSF__Card__c> cardRecords;
+        List<Card__c> cardRecords;
         if (isTestRunning) {
             cardRecords = [
                 SELECT
@@ -220,7 +220,7 @@ public with sharing class BoardSelector {
                     OpenSF__Assignee__r.SmallPhotoUrl,
                     OpenSF__Position__c,
                     LastModifiedDate
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE Id = :cardId
                 LIMIT 1
             ];
@@ -241,7 +241,7 @@ public with sharing class BoardSelector {
                     OpenSF__Assignee__r.SmallPhotoUrl,
                     OpenSF__Position__c,
                     LastModifiedDate
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE Id = :cardId
                 WITH SECURITY_ENFORCED
                 LIMIT 1
@@ -255,9 +255,9 @@ public with sharing class BoardSelector {
      * @param cardIds The set of card Ids to retrieve.
      * @return A list of card records associated with the specified Ids.
      */
-    public static List<OpenSF__Card__c> getCardsById(Set<Id> cardIds) {
+    public static List<Card__c> getCardsById(Set<Id> cardIds) {
         if (cardIds == null || cardIds.isEmpty()) {
-            return new List<OpenSF__Card__c>();
+            return new List<Card__c>();
         }
         if (isTestRunning) {
             return [
@@ -276,7 +276,7 @@ public with sharing class BoardSelector {
                     OpenSF__Assignee__r.SmallPhotoUrl,
                     OpenSF__Position__c,
                     LastModifiedDate
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE Id IN :cardIds
             ];
         } else {
@@ -296,7 +296,7 @@ public with sharing class BoardSelector {
                     OpenSF__Assignee__r.SmallPhotoUrl,
                     OpenSF__Position__c,
                     LastModifiedDate
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE Id IN :cardIds
                 WITH SECURITY_ENFORCED
             ];
@@ -316,13 +316,13 @@ public with sharing class BoardSelector {
         if (isTestRunning) {
             result = [
                 SELECT MAX(OpenSF__Position__c) maxPosition
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE OpenSF__Column__c = :columnId
             ];
         } else {
             result = [
                 SELECT MAX(OpenSF__Position__c) maxPosition
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE OpenSF__Column__c = :columnId
                 WITH SECURITY_ENFORCED
             ];
@@ -344,13 +344,13 @@ public with sharing class BoardSelector {
         if (isTestRunning) {
             result = [
                 SELECT COUNT(Id) cardCount
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE OpenSF__Column__c = :columnId
             ];
         } else {
             result = [
                 SELECT COUNT(Id) cardCount
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE OpenSF__Column__c = :columnId
                 WITH SECURITY_ENFORCED
             ];
@@ -371,13 +371,13 @@ public with sharing class BoardSelector {
         if (isTestRunning) {
             result = [
                 SELECT COUNT(Id) cardCount
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE OpenSF__Epic__c = :epicCardId
             ];
         } else {
             result = [
                 SELECT COUNT(Id) cardCount
-                FROM OpenSF__Card__c
+                FROM Card__c
                 WHERE OpenSF__Epic__c = :epicCardId
                 WITH SECURITY_ENFORCED
             ];
