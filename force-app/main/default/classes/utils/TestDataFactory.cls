@@ -1,5 +1,5 @@
 /**
- * @description This class provides utility methods for creating test data for OpenSF__Board__c, OpenSF__Column__c, and OpenSF__Card__c records.
+ * @description This class provides utility methods for creating test data for Board__c, Column__c, and Card__c records.
  * It is used to facilitate unit testing by generating the necessary data setup.
  * @author Open Systems Foundation
  * @date 13-Nov-2024
@@ -7,49 +7,49 @@
 @isTest
 public class TestDataFactory {
     /**
-     * @description Create a test OpenSF__Board__c record with the specified name.
+     * @description Create a test Board__c record with the specified name.
      *
      * @param name The name of the board.
-     * @return The created OpenSF__Board__c record.
+     * @return The created Board__c record.
      */
-    public static OpenSF__Board__c createBoard(String name) {
-        OpenSF__Board__c board = new OpenSF__Board__c(Name = name);
+    public static Board__c createBoard(String name) {
+        Board__c board = new Board__c(Name = name);
         insert board;
         return board;
     }
 
     /**
-     * @description Create a test OpenSF__Column__c record for a specific board.
+     * @description Create a test Column__c record for a specific board.
      *
      * @param boardId The Id of the board.
-     * @return The created OpenSF__Column__c record.
+     * @return The created Column__c record.
      */
-    public static OpenSF__Column__c createColumn(Id boardId) {
-        OpenSF__Column__c column = new OpenSF__Column__c(
-            OpenSF__Board__c = boardId,
-            OpenSF__Position__c = 1 // Set a default position
+    public static Column__c createColumn(Id boardId) {
+        Column__c column = new Column__c(
+            Board__c = boardId,
+            Position__c = 1 // Set a default position
         );
         insert column;
         return column;
     }
 
     /**
-     * @description Create multiple test OpenSF__Column__c records for a specific board.
+     * @description Create multiple test Column__c records for a specific board.
      *
      * @param boardId The Id of the board.
      * @param count The number of columns to create.
-     * @return A list of created OpenSF__Column__c records.
+     * @return A list of created Column__c records.
      */
-    public static List<OpenSF__Column__c> createColumns(
+    public static List<Column__c> createColumns(
         Id boardId,
         Integer count
     ) {
-        List<OpenSF__Column__c> columns = new List<OpenSF__Column__c>();
+        List<Column__c> columns = new List<Column__c>();
         for (Integer i = 1; i <= count; i++) {
             columns.add(
-                new OpenSF__Column__c(
-                    OpenSF__Board__c = boardId,
-                    OpenSF__Position__c = i
+                new Column__c(
+                    Board__c = boardId,
+                    Position__c = i
                 )
             );
         }
@@ -58,51 +58,51 @@ public class TestDataFactory {
     }
 
     /**
-     * @description Create a test OpenSF__Card__c record for a specific column with the specified position.
+     * @description Create a test Card__c record for a specific column with the specified position.
      *
      * @param columnId The Id of the column.
      * @param position The position of the card.
-     * @return The created OpenSF__Card__c record.
+     * @return The created Card__c record.
      */
-    public static OpenSF__Card__c createCard(Id columnId, Integer position) {
-        OpenSF__Card__c card = new OpenSF__Card__c(
-            OpenSF__Column__c = columnId,
-            OpenSF__Position__c = position
+    public static Card__c createCard(Id columnId, Integer position) {
+        Card__c card = new Card__c(
+            Column__c = columnId,
+            Position__c = position
         );
         insert card;
         return card;
     }
 
     /**
-     * @description Create a test OpenSF__Card__c record of type 'Epic'.
+     * @description Create a test Card__c record of type 'Epic'.
      *
-     * @return The created OpenSF__Card__c record of type 'Epic'.
+     * @return The created Card__c record of type 'Epic'.
      */
-    public static OpenSF__Card__c createEpic() {
-        OpenSF__Card__c epicCard = new OpenSF__Card__c(
-            OpenSF__CardType__c = 'Epic'
+    public static Card__c createEpic() {
+        Card__c epicCard = new Card__c(
+            CardType__c = 'Epic'
         );
         insert epicCard;
         return epicCard;
     }
 
     /**
-     * @description Create multiple test OpenSF__Card__c records for a specific column.
+     * @description Create multiple test Card__c records for a specific column.
      *
      * @param columnId The Id of the column.
      * @param count The number of cards to create.
-     * @return A list of created OpenSF__Card__c records.
+     * @return A list of created Card__c records.
      */
-    public static List<OpenSF__Card__c> createCards(
+    public static List<Card__c> createCards(
         Id columnId,
         Integer count
     ) {
-        List<OpenSF__Card__c> cards = new List<OpenSF__Card__c>();
+        List<Card__c> cards = new List<Card__c>();
         for (Integer i = 1; i <= count; i++) {
             cards.add(
-                new OpenSF__Card__c(
-                    OpenSF__Column__c = columnId,
-                    OpenSF__Position__c = i
+                new Card__c(
+                    Column__c = columnId,
+                    Position__c = i
                 )
             );
         }

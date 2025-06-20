@@ -9,8 +9,8 @@ const REPLAY_ID = -1;
 export default class KanbanBoardSubscriber extends LightningElement {
     @api boardId;
     channels = [
-        '/event/OpenSF__CardUpdateEvent__e',
-        '/event/OpenSF__ColumnUpdateEvent__e'
+        '/event/CardUpdateEvent__e',
+        '/event/ColumnUpdateEvent__e'
     ];
     subscriptions = [];
     eventData = {};
@@ -90,10 +90,10 @@ export default class KanbanBoardSubscriber extends LightningElement {
     handleEvent(eventData, channel) {
         try {
             switch (channel) {
-                case '/event/OpenSF__CardUpdateEvent__e':
+                case '/event/CardUpdateEvent__e':
                     this.handleCardEvent(eventData);
                     break;
-                case '/event/OpenSF__ColumnUpdateEvent__e':
+                case '/event/ColumnUpdateEvent__e':
                     this.handleColumnEvent(eventData);
                     break;
                 default:
@@ -112,7 +112,7 @@ export default class KanbanBoardSubscriber extends LightningElement {
         }
 
         try {
-            switch (eventData.OpenSF__EventType__c) {
+            switch (eventData.EventType__c) {
                 case 'CardCreate':
                     kanbanStore.addCard(this.boardId, cardData);
                     break;
@@ -128,7 +128,7 @@ export default class KanbanBoardSubscriber extends LightningElement {
         } catch (error) {
             this.logError(
                 error,
-                `Error processing card event: ${eventData.OpenSF__EventType__c}`
+                `Error processing card event: ${eventData.EventType__c}`
             );
         }
     }
@@ -141,7 +141,7 @@ export default class KanbanBoardSubscriber extends LightningElement {
         }
 
         try {
-            switch (eventData.OpenSF__EventType__c) {
+            switch (eventData.EventType__c) {
                 case 'ColumnCreate':
                     kanbanStore.addColumn(columnData.boardId, columnData);
                     break;
@@ -160,7 +160,7 @@ export default class KanbanBoardSubscriber extends LightningElement {
         } catch (error) {
             this.logError(
                 error,
-                `Error processing column event: ${eventData.OpenSF__EventType__c}`
+                `Error processing column event: ${eventData.EventType__c}`
             );
         }
     }

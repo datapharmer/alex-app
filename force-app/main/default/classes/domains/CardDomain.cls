@@ -274,12 +274,12 @@ public class CardDomain {
             );
         }
 
-        List<OpenSF__Column__c> columnsToUpdate = new List<OpenSF__Column__c>();
+        List<Column__c> columnsToUpdate = new List<Column__c>();
         for (Id columnId : affectedColumnIds) {
             columnsToUpdate.add(
-                new OpenSF__Column__c(
+                new Column__c(
                     Id = columnId,
-                    OpenSF__CardCount__c = columnCardCounts.containsKey(
+                    CardCount__c = columnCardCounts.containsKey(
                             columnId
                         )
                         ? columnCardCounts.get(columnId)

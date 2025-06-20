@@ -10,20 +10,20 @@ export default class EditCardModal extends LightningElement {
     @api cardId;
     @api cardName;
     @api boardId;
-    objectApiName = 'OpenSF__Card__c';
+    objectApiName = 'Card__c';
     results;
     errors;
 
     fields = [];
     fallbackFields = [
-        'OpenSF__Subject__c',
-        'OpenSF__Status__c',
-        'OpenSF__Epic__c',
-        'OpenSF__Assignee__c',
-        'OpenSF__CardType__c',
-        'OpenSF__StoryPoints__c',
-        'OpenSF__Priority__c',
-        'OpenSF__Color__c'
+        'Subject__c',
+        'Status__c',
+        'Epic__c',
+        'Assignee__c',
+        'CardType__c',
+        'StoryPoints__c',
+        'Priority__c',
+        'Color__c'
     ];
 
     @wire(graphql, {
@@ -31,7 +31,7 @@ export default class EditCardModal extends LightningElement {
             query CustomMetadataByDeveloperName {
                 uiapi {
                     query {
-                        boardSettings: OpenSF__KanbanBoardSettings__mdt(
+                        boardSettings: KanbanBoardSettings__mdt(
                             where: { DeveloperName: { eq: "Modal_Settings" } }
                         ) {
                             edges {
@@ -40,7 +40,7 @@ export default class EditCardModal extends LightningElement {
                                     developerName: DeveloperName {
                                         value
                                     }
-                                    fieldNames: OpenSF__FieldNames__c {
+                                    fieldNames: FieldNames__c {
                                         value
                                     }
                                 }
@@ -101,13 +101,13 @@ export default class EditCardModal extends LightningElement {
 
     extractCardData(event) {
         const {
-            OpenSF__Assignee__c: { value: assigneeId },
-            OpenSF__Color__c: { value: cardColor },
-            OpenSF__CardType__c: { value: cardType },
-            OpenSF__Priority__c: { value: cardPriority },
-            OpenSF__Status__c: { value: cardStatus },
-            OpenSF__StoryPoints__c: { value: storyPoints },
-            OpenSF__Subject__c: { value: cardSubject }
+            Assignee__c: { value: assigneeId },
+            Color__c: { value: cardColor },
+            CardType__c: { value: cardType },
+            Priority__c: { value: cardPriority },
+            Status__c: { value: cardStatus },
+            StoryPoints__c: { value: storyPoints },
+            Subject__c: { value: cardSubject }
         } = event.detail.fields;
 
         return {

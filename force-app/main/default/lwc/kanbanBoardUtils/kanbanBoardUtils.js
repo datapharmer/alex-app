@@ -37,17 +37,17 @@ class KanbanBoardUtils {
                 : [],
             columns: result.columns
                 ? result.columns.map(column => ({
-                      columnColor: column?.OpenSF__Color__c ?? undefined,
-                      boardId: column?.OpenSF__Board__c ?? undefined,
+                      columnColor: column?.Color__c ?? undefined,
+                      boardId: column?.Board__c ?? undefined,
                       columnHeader:
-                          column?.OpenSF__ColumnHeader__c ??
+                          column?.ColumnHeader__c ??
                           column?.Name ??
                           'Unnamed Column',
                       columnId: column?.Id ?? undefined,
                       columnName: column?.Name ?? 'Unnamed Column',
-                      columnPosition: column?.OpenSF__Position__c ?? undefined,
-                      columnStatus: column?.OpenSF__Status__c ?? undefined,
-                      columnUrl: `/lightning/r/OpenSF__Column__c/${column?.Id}/view`,
+                      columnPosition: column?.Position__c ?? undefined,
+                      columnStatus: column?.Status__c ?? undefined,
+                      columnUrl: `/lightning/r/Column__c/${column?.Id}/view`,
                       lastModifiedDate: this.formatDateWithoutPrecision(
                           column?.LastModifiedDate
                       )
@@ -58,23 +58,23 @@ class KanbanBoardUtils {
 
     mapCard(card) {
         return {
-            assigneeId: card?.OpenSF__Assignee__c ?? undefined,
-            assigneeName: card.OpenSF__Assignee__r?.Name ?? undefined,
-            assigneePhoto: card.OpenSF__Assignee__r?.SmallPhotoUrl ?? undefined,
-            cardColor: card?.OpenSF__Color__c ?? undefined,
+            assigneeId: card?.Assignee__c ?? undefined,
+            assigneeName: card.Assignee__r?.Name ?? undefined,
+            assigneePhoto: card.Assignee__r?.SmallPhotoUrl ?? undefined,
+            cardColor: card?.Color__c ?? undefined,
             cardId: card?.Id ?? undefined,
             cardName: card?.Name ?? 'Unnamed Card',
-            cardPosition: card?.OpenSF__Position__c ?? undefined,
-            cardPriority: card?.OpenSF__Priority__c ?? undefined,
-            cardStatus: card?.OpenSF__Status__c ?? undefined,
-            cardSubject: card?.OpenSF__Subject__c ?? undefined,
-            cardType: card?.OpenSF__CardType__c ?? undefined,
-            cardUrl: `/lightning/r/OpenSF__Card__c/${card.Id}/view`,
-            columnId: card?.OpenSF__Column__c ?? undefined,
+            cardPosition: card?.Position__c ?? undefined,
+            cardPriority: card?.Priority__c ?? undefined,
+            cardStatus: card?.Status__c ?? undefined,
+            cardSubject: card?.Subject__c ?? undefined,
+            cardType: card?.CardType__c ?? undefined,
+            cardUrl: `/lightning/r/Card__c/${card.Id}/view`,
+            columnId: card?.Column__c ?? undefined,
             lastModifiedDate: this.formatDateWithoutPrecision(
                 card?.LastModifiedDate
             ),
-            storyPoints: card?.OpenSF__StoryPoints__c ?? undefined
+            storyPoints: card?.StoryPoints__c ?? undefined
         };
     }
 
@@ -84,33 +84,33 @@ class KanbanBoardUtils {
 
     extractCardData(eventData) {
         return {
-            assigneeId: eventData.OpenSF__AssigneeId__c,
-            cardColor: eventData.OpenSF__CardColor__c,
-            cardId: eventData.OpenSF__CardId__c,
-            cardName: eventData.OpenSF__CardName__c,
-            cardUrl: `/lightning/r/OpenSF__Card__c/${eventData.OpenSF__CardId__c}/view`,
-            cardPosition: eventData.OpenSF__CardPosition__c,
-            cardPriority: eventData.OpenSF__CardPriority__c,
-            cardStatus: eventData.OpenSF__CardStatus__c,
-            cardSubject: eventData.OpenSF__CardSubject__c,
-            cardType: eventData.OpenSF__CardType__c,
-            columnId: eventData.OpenSF__ColumnId__c,
-            lastModifiedDate: eventData.OpenSF__LastModifiedDate__c,
-            storyPoints: eventData.OpenSF__StoryPoints__c
+            assigneeId: eventData.AssigneeId__c,
+            cardColor: eventData.CardColor__c,
+            cardId: eventData.CardId__c,
+            cardName: eventData.CardName__c,
+            cardUrl: `/lightning/r/Card__c/${eventData.CardId__c}/view`,
+            cardPosition: eventData.CardPosition__c,
+            cardPriority: eventData.CardPriority__c,
+            cardStatus: eventData.CardStatus__c,
+            cardSubject: eventData.CardSubject__c,
+            cardType: eventData.CardType__c,
+            columnId: eventData.ColumnId__c,
+            lastModifiedDate: eventData.LastModifiedDate__c,
+            storyPoints: eventData.StoryPoints__c
         };
     }
 
     extractColumnData(eventData) {
         return {
-            columnColor: eventData.OpenSF__ColumnColor__c,
-            columnId: eventData.OpenSF__ColumnId__c,
-            columnUrl: `/lightning/r/OpenSF__Column__c/${eventData.OpenSF__ColumnId__c}/view`,
-            columnName: eventData.OpenSF__ColumnName__c,
-            columnPosition: eventData.OpenSF__ColumnPosition__c,
-            columnStatus: eventData.OpenSF__ColumnStatus__c,
-            columnHeader: eventData.OpenSF__ColumnHeader__c,
-            boardId: eventData.OpenSF__BoardId__c,
-            lastModifiedDate: eventData.OpenSF__LastModifiedDate__c
+            columnColor: eventData.ColumnColor__c,
+            columnId: eventData.ColumnId__c,
+            columnUrl: `/lightning/r/Column__c/${eventData.ColumnId__c}/view`,
+            columnName: eventData.ColumnName__c,
+            columnPosition: eventData.ColumnPosition__c,
+            columnStatus: eventData.ColumnStatus__c,
+            columnHeader: eventData.ColumnHeader__c,
+            boardId: eventData.BoardId__c,
+            lastModifiedDate: eventData.LastModifiedDate__c
         };
     }
 }

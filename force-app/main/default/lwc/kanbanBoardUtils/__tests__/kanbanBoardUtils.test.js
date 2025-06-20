@@ -19,18 +19,18 @@ describe('c-kanban-board-utils', () => {
                 {
                     Id: 'card1',
                     Name: 'Card 1',
-                    OpenSF__Assignee__c: 'user1',
-                    OpenSF__Assignee__r: {
+                    Assignee__c: 'user1',
+                    Assignee__r: {
                         Name: 'User 1',
                         SmallPhotoUrl: '/img/user1.png'
                     },
-                    OpenSF__CardType__c: 'Bug',
-                    OpenSF__Column__c: 'col1',
-                    OpenSF__Position__c: 1,
-                    OpenSF__Priority__c: 'High',
-                    OpenSF__Status__c: 'New',
-                    OpenSF__StoryPoints__c: 5,
-                    OpenSF__Subject__c: 'Subject 1',
+                    CardType__c: 'Bug',
+                    Column__c: 'col1',
+                    Position__c: 1,
+                    Priority__c: 'High',
+                    Status__c: 'New',
+                    StoryPoints__c: 5,
+                    Subject__c: 'Subject 1',
                     CreatedDate: '2023-10-01T12:34:56.789Z'
                 }
             ],
@@ -38,10 +38,10 @@ describe('c-kanban-board-utils', () => {
                 {
                     Id: 'col1',
                     Name: 'Column 1',
-                    OpenSF__Board__c: '1',
-                    OpenSF__ColumnHeader__c: 'Header 1',
-                    OpenSF__Position__c: 1,
-                    OpenSF__Status__c: 'Open',
+                    Board__c: '1',
+                    ColumnHeader__c: 'Header 1',
+                    Position__c: 1,
+                    Status__c: 'Open',
                     LastModifiedDate: '2023-10-01T12:34:56.789Z'
                 }
             ]

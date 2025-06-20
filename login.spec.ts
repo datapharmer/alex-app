@@ -17,7 +17,7 @@ test('Clear existing cards using Anonymous Apex and proceed with board operation
     const frontdoorUrl = `${baseUrl}/secur/frontdoor.jsp?sid=${accessToken}`;
     const apexScript = `
         // Query all cards related to the board
-        List<OpenSF__Card__c> cardsToDelete = [SELECT Id FROM OpenSF__Card__c WHERE OpenSF__Board__c = 'YOUR_BOARD_ID'];
+        List<Card__c> cardsToDelete = [SELECT Id FROM Card__c WHERE Board__c = 'YOUR_BOARD_ID'];
 
         // Delete the cards
         delete cardsToDelete;
@@ -30,7 +30,7 @@ test('Clear existing cards using Anonymous Apex and proceed with board operation
     const browser = await chromium.launch({ headless: false }); // Set headless: false for debugging
     const context = await browser.newContext();
     const page = await context.newPage();
-    const boardListView = `${baseUrl}/lightning/o/OpenSF__Board__c/list?filterName=OpenSF__All`;
+    const boardListView = `${baseUrl}/lightning/o/Board__c/list?filterName=All`;
 
     try {
         console.log('Navigating to Salesforce frontdoor URL...');

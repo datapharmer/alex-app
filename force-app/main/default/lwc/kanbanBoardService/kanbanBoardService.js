@@ -107,9 +107,9 @@ class BoardService {
                 await updateCards({
                     cards: cards.map(card => ({
                         Id: card.cardId,
-                        OpenSF__Column__c: card.columnId,
-                        OpenSF__Position__c: card.cardPosition,
-                        OpenSF__Status__c: card.cardStatus
+                        Column__c: card.columnId,
+                        Position__c: card.cardPosition,
+                        Status__c: card.cardStatus
                     }))
                 })
             );

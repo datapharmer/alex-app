@@ -66,7 +66,7 @@ def generate_and_execute_commands(data):
     
     # Create Boards
     for board in data['boards']:
-        command = f'sf data create record --sobject OpenSF__Board__c --values "Name=\'{board["Name"]}\'" --json'
+        command = f'sf data create record --sobject Board__c --values "Name=\'{board["Name"]}\'" --json'
         result = execute_sf_command(command)
         board_id = result["result"]["id"]
         print(f"Created Board: {board['Name']} with ID: {board_id}")
@@ -76,8 +76,8 @@ def generate_and_execute_commands(data):
         parent_board_id = board_id  # Since we assume one board per run
 
         command = (
-            f'sf data create record --sobject OpenSF__Column__c '
-            f'--values "OpenSF__Position__c={column_["Position"]} OpenSF__Board__c=\'{parent_board_id}\' OpenSF__ColumnHeader__c=\'{column_["ColumnHeader"]}\'" --json'
+            f'sf data create record --sobject Column__c '
+            f'--values "Position__c={column_["Position"]} Board__c=\'{parent_board_id}\' ColumnHeader__c=\'{column_["ColumnHeader"]}\'" --json'
         )
         result = execute_sf_command(command)
         column_id = result["result"]["id"]
@@ -94,8 +94,8 @@ def generate_and_execute_commands(data):
             sys.exit(1)
         
         command = (
-            f'sf data create record --sobject OpenSF__Card__c '
-            f'--values "OpenSF__Position__c={card["Position"]} OpenSF__Column__c=\'{column_id}\'" --json'
+            f'sf data create record --sobject Card__c '
+            f'--values "Position__c={card["Position"]} Column__c=\'{column_id}\'" --json'
         )
         result = execute_sf_command(command)
         card_id = result["result"]["id"]

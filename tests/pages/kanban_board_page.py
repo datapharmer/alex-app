@@ -9,7 +9,7 @@ class KanbanBoardPage:
         self.instance_url = instance_url
         self.board_id = board_id
         self.board_url = f"{
-            self.instance_url}/lightning/r/OpenSF__Board__c/{self.board_id}/view"
+            self.instance_url}/lightning/r/Board__c/{self.board_id}/view"
 
     def navigate_to_board(self):
         print(f"Navigating to board URL: {self.board_url}")

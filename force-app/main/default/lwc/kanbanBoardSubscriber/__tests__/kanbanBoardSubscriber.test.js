@@ -40,7 +40,7 @@ describe('c-kanban-board-subscriber', () => {
 
     it('should subscribe to the platform event on connectedCallback', () => {
         expect(subscribe).toHaveBeenCalledWith(
-            '/event/OpenSF__CardUpdateEvent__e', // channelName
+            '/event/CardUpdateEvent__e', // channelName
             -1, // REPLAY_ID
             expect.any(Function) // Callback function
         );
@@ -50,18 +50,18 @@ describe('c-kanban-board-subscriber', () => {
         const mockEvent = {
             data: {
                 payload: {
-                    OpenSF__EventType__c: 'CardCreate',
-                    OpenSF__AssigneeId__c: '001',
-                    OpenSF__CardId__c: '002',
-                    OpenSF__CardName__c: 'Test Card',
-                    OpenSF__CardPosition__c: '1',
-                    OpenSF__CardPriority__c: 'High',
-                    OpenSF__CardStatus__c: 'In Progress',
-                    OpenSF__CardSubject__c: 'Subject',
-                    OpenSF__CardType__c: 'Bug',
-                    OpenSF__ColumnId__c: '003',
-                    OpenSF__LastModifiedDate__c: '2023-10-01T00:00:00.000Z',
-                    OpenSF__StoryPoints__c: '5'
+                    EventType__c: 'CardCreate',
+                    AssigneeId__c: '001',
+                    CardId__c: '002',
+                    CardName__c: 'Test Card',
+                    CardPosition__c: '1',
+                    CardPriority__c: 'High',
+                    CardStatus__c: 'In Progress',
+                    CardSubject__c: 'Subject',
+                    CardType__c: 'Bug',
+                    ColumnId__c: '003',
+                    LastModifiedDate__c: '2023-10-01T00:00:00.000Z',
+                    StoryPoints__c: '5'
                 }
             }
         };
@@ -80,7 +80,7 @@ describe('c-kanban-board-subscriber', () => {
                 cardStatus: 'In Progress',
                 cardSubject: 'Subject',
                 cardType: 'Bug',
-                cardUrl: '/lightning/r/OpenSF__Card__c/002/view',
+                cardUrl: '/lightning/r/Card__c/002/view',
                 columnId: '003',
                 lastModifiedDate: '2023-10-01T00:00:00.000Z',
                 storyPoints: '5'
@@ -92,19 +92,19 @@ describe('c-kanban-board-subscriber', () => {
         const mockEvent = {
             data: {
                 payload: {
-                    OpenSF__EventType__c: 'CardUpdate',
-                    OpenSF__AssigneeId__c: '001',
-                    OpenSF__CardId__c: '002',
-                    OpenSF__CardName__c: 'Updated Card',
-                    OpenSF__CardPosition__c: '2',
-                    OpenSF__CardPriority__c: 'Medium',
-                    OpenSF__CardStatus__c: 'Completed',
-                    OpenSF__CardSubject__c: 'Updated Subject',
-                    OpenSF__CardType__c: 'Feature',
-                    cardUrl: '/lightning/r/OpenSF__Card__c/002/view',
-                    OpenSF__ColumnId__c: '004',
-                    OpenSF__LastModifiedDate__c: '2023-10-02T00:00:00.000Z',
-                    OpenSF__StoryPoints__c: '8'
+                    EventType__c: 'CardUpdate',
+                    AssigneeId__c: '001',
+                    CardId__c: '002',
+                    CardName__c: 'Updated Card',
+                    CardPosition__c: '2',
+                    CardPriority__c: 'Medium',
+                    CardStatus__c: 'Completed',
+                    CardSubject__c: 'Updated Subject',
+                    CardType__c: 'Feature',
+                    cardUrl: '/lightning/r/Card__c/002/view',
+                    ColumnId__c: '004',
+                    LastModifiedDate__c: '2023-10-02T00:00:00.000Z',
+                    StoryPoints__c: '8'
                 }
             }
         };
@@ -123,7 +123,7 @@ describe('c-kanban-board-subscriber', () => {
                 cardStatus: 'Completed',
                 cardSubject: 'Updated Subject',
                 cardType: 'Feature',
-                cardUrl: '/lightning/r/OpenSF__Card__c/002/view',
+                cardUrl: '/lightning/r/Card__c/002/view',
                 columnId: '004',
                 lastModifiedDate: '2023-10-02T00:00:00.000Z',
                 storyPoints: '8'
@@ -135,8 +135,8 @@ describe('c-kanban-board-subscriber', () => {
         const mockEvent = {
             data: {
                 payload: {
-                    OpenSF__EventType__c: 'CardDelete',
-                    OpenSF__CardId__c: '002'
+                    EventType__c: 'CardDelete',
+                    CardId__c: '002'
                 }
             }
         };

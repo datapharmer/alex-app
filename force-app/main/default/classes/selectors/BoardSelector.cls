@@ -5,8 +5,8 @@
  */
 public with sharing class BoardSelector {
     // Selector Fields
-    private static final String CARD_FIELDS = 'Id, Name, OpenSF__Column__c, OpenSF__StoryPoints__c, OpenSF__Subject__c, OpenSF__Status__c, OpenSF__Priority__c, OpenSF__CardType__c, OpenSF__Assignee__c, OpenSF__Assignee__r.Name, OpenSF__Assignee__r.SmallPhotoUrl, OpenSF__Position__c, LastModifiedDate';
-    private static final String COLUMN_FIELDS = 'Id, Name, OpenSF__Board__c, OpenSF__ColumnHeader__c, OpenSF__Position__c, OpenSF__Status__c, LastModifiedDate';
+    private static final String CARD_FIELDS = 'Id, Name, Column__c, StoryPoints__c, Subject__c, Status__c, Priority__c, CardType__c, Assignee__c, Assignee__r.Name, Assignee__r.SmallPhotoUrl, Position__c, LastModifiedDate';
+    private static final String COLUMN_FIELDS = 'Id, Name, Board__c, ColumnHeader__c, Position__c, Status__c, LastModifiedDate';
     private static final String BOARD_FIELDS = 'Id, Name, LastModifiedDate';
 
     private static Boolean isTestRunning = Test.isRunningTest();
@@ -54,31 +54,31 @@ public with sharing class BoardSelector {
                 SELECT
                     Id,
                     Name,
-                    OpenSF__Board__c,
-                    OpenSF__Color__c,
-                    OpenSF__ColumnHeader__c,
-                    OpenSF__Position__c,
-                    OpenSF__Status__c,
+                    Board__c,
+                    Color__c,
+                    ColumnHeader__c,
+                    Position__c,
+                    Status__c,
                     LastModifiedDate
                 FROM Column__c
-                WHERE OpenSF__Board__c = :boardId
-                ORDER BY OpenSF__Position__c
+                WHERE Board__c = :boardId
+                ORDER BY Position__c
             ];
         } else {
             return [
                 SELECT
                     Id,
                     Name,
-                    OpenSF__Board__c,
-                    OpenSF__Color__c,
-                    OpenSF__ColumnHeader__c,
-                    OpenSF__Position__c,
-                    OpenSF__Status__c,
+                    Board__c,
+                    Color__c,
+                    ColumnHeader__c,
+                    Position__c,
+                    Status__c,
                     LastModifiedDate
                 FROM Column__c
-                WHERE OpenSF__Board__c = :boardId
+                WHERE Board__c = :boardId
                 WITH SECURITY_ENFORCED
-                ORDER BY OpenSF__Position__c
+                ORDER BY Position__c
             ];
         }
     }
@@ -97,43 +97,43 @@ public with sharing class BoardSelector {
                 SELECT
                     Id,
                     Name,
-                    OpenSF__Color__c,
-                    OpenSF__Column__c,
-                    OpenSF__StoryPoints__c,
-                    OpenSF__Subject__c,
-                    OpenSF__Status__c,
-                    OpenSF__Priority__c,
-                    OpenSF__CardType__c,
-                    OpenSF__Assignee__c,
-                    OpenSF__Assignee__r.Name,
-                    OpenSF__Assignee__r.SmallPhotoUrl,
-                    OpenSF__Position__c,
+                    Color__c,
+                    Column__c,
+                    StoryPoints__c,
+                    Subject__c,
+                    Status__c,
+                    Priority__c,
+                    CardType__c,
+                    Assignee__c,
+                    Assignee__r.Name,
+                    Assignee__r.SmallPhotoUrl,
+                    Position__c,
                     LastModifiedDate
                 FROM Card__c
-                WHERE OpenSF__Column__c IN :columnIds
-                ORDER BY OpenSF__Position__c
+                WHERE Column__c IN :columnIds
+                ORDER BY Position__c
             ];
         } else {
             return [
                 SELECT
                     Id,
                     Name,
-                    OpenSF__Color__c,
-                    OpenSF__Column__c,
-                    OpenSF__StoryPoints__c,
-                    OpenSF__Subject__c,
-                    OpenSF__Status__c,
-                    OpenSF__Priority__c,
-                    OpenSF__CardType__c,
-                    OpenSF__Assignee__c,
-                    OpenSF__Assignee__r.Name,
-                    OpenSF__Assignee__r.SmallPhotoUrl,
-                    OpenSF__Position__c,
+                    Color__c,
+                    Column__c,
+                    StoryPoints__c,
+                    Subject__c,
+                    Status__c,
+                    Priority__c,
+                    CardType__c,
+                    Assignee__c,
+                    Assignee__r.Name,
+                    Assignee__r.SmallPhotoUrl,
+                    Position__c,
                     LastModifiedDate
                 FROM Card__c
-                WHERE OpenSF__Column__c IN :columnIds
+                WHERE Column__c IN :columnIds
                 WITH SECURITY_ENFORCED
-                ORDER BY OpenSF__Position__c
+                ORDER BY Position__c
             ];
         }
     }
@@ -152,43 +152,43 @@ public with sharing class BoardSelector {
                 SELECT
                     Id,
                     Name,
-                    OpenSF__Color__c,
-                    OpenSF__Column__c,
-                    OpenSF__StoryPoints__c,
-                    OpenSF__Subject__c,
-                    OpenSF__Status__c,
-                    OpenSF__Priority__c,
-                    OpenSF__CardType__c,
-                    OpenSF__Assignee__c,
-                    OpenSF__Assignee__r.Name,
-                    OpenSF__Assignee__r.SmallPhotoUrl,
-                    OpenSF__Position__c,
+                    Color__c,
+                    Column__c,
+                    StoryPoints__c,
+                    Subject__c,
+                    Status__c,
+                    Priority__c,
+                    CardType__c,
+                    Assignee__c,
+                    Assignee__r.Name,
+                    Assignee__r.SmallPhotoUrl,
+                    Position__c,
                     LastModifiedDate
                 FROM Card__c
-                WHERE OpenSF__Column__c = :columnId
-                ORDER BY OpenSF__Position__c
+                WHERE Column__c = :columnId
+                ORDER BY Position__c
             ];
         } else {
             return [
                 SELECT
                     Id,
                     Name,
-                    OpenSF__Color__c,
-                    OpenSF__Column__c,
-                    OpenSF__StoryPoints__c,
-                    OpenSF__Subject__c,
-                    OpenSF__Status__c,
-                    OpenSF__Priority__c,
-                    OpenSF__CardType__c,
-                    OpenSF__Assignee__c,
-                    OpenSF__Assignee__r.Name,
-                    OpenSF__Assignee__r.SmallPhotoUrl,
-                    OpenSF__Position__c,
+                    Color__c,
+                    Column__c,
+                    StoryPoints__c,
+                    Subject__c,
+                    Status__c,
+                    Priority__c,
+                    CardType__c,
+                    Assignee__c,
+                    Assignee__r.Name,
+                    Assignee__r.SmallPhotoUrl,
+                    Position__c,
                     LastModifiedDate
                 FROM Card__c
-                WHERE OpenSF__Column__c = :columnId
+                WHERE Column__c = :columnId
                 WITH SECURITY_ENFORCED
-                ORDER BY OpenSF__Position__c
+                ORDER BY Position__c
             ];
         }
     }
@@ -208,17 +208,17 @@ public with sharing class BoardSelector {
                 SELECT
                     Id,
                     Name,
-                    OpenSF__Color__c,
-                    OpenSF__Column__c,
-                    OpenSF__StoryPoints__c,
-                    OpenSF__Subject__c,
-                    OpenSF__Status__c,
-                    OpenSF__Priority__c,
-                    OpenSF__CardType__c,
-                    OpenSF__Assignee__c,
-                    OpenSF__Assignee__r.Name,
-                    OpenSF__Assignee__r.SmallPhotoUrl,
-                    OpenSF__Position__c,
+                    Color__c,
+                    Column__c,
+                    StoryPoints__c,
+                    Subject__c,
+                    Status__c,
+                    Priority__c,
+                    CardType__c,
+                    Assignee__c,
+                    Assignee__r.Name,
+                    Assignee__r.SmallPhotoUrl,
+                    Position__c,
                     LastModifiedDate
                 FROM Card__c
                 WHERE Id = :cardId
@@ -229,17 +229,17 @@ public with sharing class BoardSelector {
                 SELECT
                     Id,
                     Name,
-                    OpenSF__Color__c,
-                    OpenSF__Column__c,
-                    OpenSF__StoryPoints__c,
-                    OpenSF__Subject__c,
-                    OpenSF__Status__c,
-                    OpenSF__Priority__c,
-                    OpenSF__CardType__c,
-                    OpenSF__Assignee__c,
-                    OpenSF__Assignee__r.Name,
-                    OpenSF__Assignee__r.SmallPhotoUrl,
-                    OpenSF__Position__c,
+                    Color__c,
+                    Column__c,
+                    StoryPoints__c,
+                    Subject__c,
+                    Status__c,
+                    Priority__c,
+                    CardType__c,
+                    Assignee__c,
+                    Assignee__r.Name,
+                    Assignee__r.SmallPhotoUrl,
+                    Position__c,
                     LastModifiedDate
                 FROM Card__c
                 WHERE Id = :cardId
@@ -264,17 +264,17 @@ public with sharing class BoardSelector {
                 SELECT
                     Id,
                     Name,
-                    OpenSF__Color__c,
-                    OpenSF__Column__c,
-                    OpenSF__StoryPoints__c,
-                    OpenSF__Subject__c,
-                    OpenSF__Status__c,
-                    OpenSF__Priority__c,
-                    OpenSF__CardType__c,
-                    OpenSF__Assignee__c,
-                    OpenSF__Assignee__r.Name,
-                    OpenSF__Assignee__r.SmallPhotoUrl,
-                    OpenSF__Position__c,
+                    Color__c,
+                    Column__c,
+                    StoryPoints__c,
+                    Subject__c,
+                    Status__c,
+                    Priority__c,
+                    CardType__c,
+                    Assignee__c,
+                    Assignee__r.Name,
+                    Assignee__r.SmallPhotoUrl,
+                    Position__c,
                     LastModifiedDate
                 FROM Card__c
                 WHERE Id IN :cardIds
@@ -284,17 +284,17 @@ public with sharing class BoardSelector {
                 SELECT
                     Id,
                     Name,
-                    OpenSF__Color__c,
-                    OpenSF__Column__c,
-                    OpenSF__StoryPoints__c,
-                    OpenSF__Subject__c,
-                    OpenSF__Status__c,
-                    OpenSF__Priority__c,
-                    OpenSF__CardType__c,
-                    OpenSF__Assignee__c,
-                    OpenSF__Assignee__r.Name,
-                    OpenSF__Assignee__r.SmallPhotoUrl,
-                    OpenSF__Position__c,
+                    Color__c,
+                    Column__c,
+                    StoryPoints__c,
+                    Subject__c,
+                    Status__c,
+                    Priority__c,
+                    CardType__c,
+                    Assignee__c,
+                    Assignee__r.Name,
+                    Assignee__r.SmallPhotoUrl,
+                    Position__c,
                     LastModifiedDate
                 FROM Card__c
                 WHERE Id IN :cardIds
@@ -315,15 +315,15 @@ public with sharing class BoardSelector {
         AggregateResult result;
         if (isTestRunning) {
             result = [
-                SELECT MAX(OpenSF__Position__c) maxPosition
+                SELECT MAX(Position__c) maxPosition
                 FROM Card__c
-                WHERE OpenSF__Column__c = :columnId
+                WHERE Column__c = :columnId
             ];
         } else {
             result = [
-                SELECT MAX(OpenSF__Position__c) maxPosition
+                SELECT MAX(Position__c) maxPosition
                 FROM Card__c
-                WHERE OpenSF__Column__c = :columnId
+                WHERE Column__c = :columnId
                 WITH SECURITY_ENFORCED
             ];
         }
@@ -345,13 +345,13 @@ public with sharing class BoardSelector {
             result = [
                 SELECT COUNT(Id) cardCount
                 FROM Card__c
-                WHERE OpenSF__Column__c = :columnId
+                WHERE Column__c = :columnId
             ];
         } else {
             result = [
                 SELECT COUNT(Id) cardCount
                 FROM Card__c
-                WHERE OpenSF__Column__c = :columnId
+                WHERE Column__c = :columnId
                 WITH SECURITY_ENFORCED
             ];
         }
@@ -372,13 +372,13 @@ public with sharing class BoardSelector {
             result = [
                 SELECT COUNT(Id) cardCount
                 FROM Card__c
-                WHERE OpenSF__Epic__c = :epicCardId
+                WHERE Epic__c = :epicCardId
             ];
         } else {
             result = [
                 SELECT COUNT(Id) cardCount
                 FROM Card__c
-                WHERE OpenSF__Epic__c = :epicCardId
+                WHERE Epic__c = :epicCardId
                 WITH SECURITY_ENFORCED
             ];
         }
