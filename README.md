@@ -44,8 +44,8 @@ Welcome to **Alex**, an open-source Lightning Web Component application for mana
 1. **Clone the Repository**:
 
     ```sh
-    git clone https://github.com/OpenSystemsFoundation/alex.git
-    cd alex
+    git clone https://github.com/datapharmer/alex.git
+    cd alex-app
     ```
 
 2. **Deploy to Salesforce**:
@@ -56,7 +56,7 @@ Welcome to **Alex**, an open-source Lightning Web Component application for mana
 
 3. **Assign the Permission Set**:
     ```sh
-    sf org assign-permset --name AlexAdmin --target-org <username/alias>
+    sf org assign permset --name Alex_Admin --target-org <username/alias>
     ```
 
 ### Usage
